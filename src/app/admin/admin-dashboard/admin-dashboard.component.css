@@ -1,0 +1,14 @@
+.nav-link {
+  color: #495057; /* Default Bootstrap text color */
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.nav-link.active {
+  color: #007bff; /* Highlighted text color */
+  background-color: #e9ecef; /* Highlighted background */
+  font-weight: bold;
+}
+
+.nav-link:hover {
+  color: #0056b3;
+}

@@ -1,0 +1,79 @@
+body {
+    background-color: #ffffff;  /* Set background to white */
+}
+
+.container {
+    margin-top: 20px;
+    background-color: transparent;  /* Ensure no background on the container */
+}
+
+.navbar {
+    background-color: #d9edf7;
+    /* Light blue color */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+    border-radius: 20px;
+    background-color: #fff;  /* White background for the cards */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);  /* Slightly more shadow on hover */
+}
+
+.card-body h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #343a40;
+}
+
+.img-fluid {
+    max-width: 100px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: inherit;
+}
+
+.card {
+    width: 200%;
+    height: 250px;  /* Adjust height to make the card more square-shaped */
+    max-width: 250px;  /* Limit width */
+    margin: 0 auto;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
+    border: none;
+    background-color: #fff;  /* White background */
+}
+
+.card-body {
+    padding: 50px;
+}
+
+.card img {
+    max-height: 120px;  /* Adjust image size */
+    margin-bottom: 10px;  /* Add space between image and text */
+}
+
+.card h1 {
+    font-size: 18px;  /* Adjust title size */
+}
+
+.dummy-number {
+    font-size: 14px;
+    color: gray;
+}

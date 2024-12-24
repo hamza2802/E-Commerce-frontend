@@ -1,0 +1,120 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .card {
+            width: 100%;
+            max-width: 200px; /* Adjust width */
+            margin: 0 auto;
+        }
+        .card-body {
+            padding: 10px;
+        }
+        .card img {
+            max-height: 120px; /* Adjust image size */
+        }
+        .card h1 {
+            font-size: 18px; /* Adjust title size */
+        }
+        .dummy-number {
+            font-size: 14px;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row mt-3">
+      <div class="col-md-4">
+        <a routerLink="/admin/users">
+          <div class="card">
+            <div class="container d-flex justify-content-center align-items-center" style="height: 150px;">
+              <img class="img-fluid" src="assets/admin-images/users.png" alt="Users">
+            </div>
+            <div class="card-body text-center">
+              <h1>Users</h1>
+              <p class="dummy-number">Total: 150</p> <!-- Dummy number for users -->
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-md-4">
+        <a routerLink="/admin/category">
+          <div class="card">
+            <div class="container d-flex justify-content-center align-items-center" style="height: 150px;">
+              <img class="img-fluid" src="assets/admin-images/category.png" alt="Category">
+            </div>
+            <div class="card-body text-center">
+              <h1>Category</h1>
+              <p class="dummy-number">Total: 12</p> <!-- Dummy number for categories -->
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-md-4">
+        <a routerLink="/admin-products">
+          <div class="card">
+            <div class="container d-flex justify-content-center align-items-center" style="height: 150px;">
+              <img class="img-fluid" src="assets/admin-images/products.png" alt="Products">
+            </div>
+            <div class="card-body text-center">
+              <h1>Products</h1>
+              <p class="dummy-number">Total: 100</p> <!-- Dummy number for products -->
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-4">
+        <a routerLink="/admin-orders">
+          <div class="card">
+            <div class="container d-flex justify-content-center align-items-center" style="height: 150px;">
+              <img class="img-fluid" src="assets/admin-images/orders.png" alt="Orders">
+            </div>
+            <div class="card-body text-center">
+              <h1>Orders</h1>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-md-4">
+        <a routerLink="/admin/delivery-agents">
+          <div class="card">
+            <div class="container d-flex justify-content-center align-items-center" style="height: 150px;">
+              <img class="img-fluid" src="assets/admin-images/delivery-agents.png" alt="Delivery Agents">
+            </div>
+            <div class="card-body text-center">
+              <h1>Delivery Agents</h1>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-md-4">
+        <a routerLink="/admin-products">
+          <div class="card">
+            <div class="container d-flex justify-content-center align-items-center" style="height: 150px;">
+              <img class="img-fluid" src="assets/admin-images/addproducts.png" alt="Add Products">
+            </div>
+            <div class="card-body text-center">
+              <h1>Add Products</h1>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Add Category Grid -->
+   
+</div>
+
+</body>
+</html>

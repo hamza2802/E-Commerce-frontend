@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+  <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+
+
+  
+  
+</head>
+
+
+
+<body>
+  
+  <nav class="navbar navbar-expand-lg" style="background-color: lightblue;">
+    <div class="container-fluid">
+      <!-- Brand Name -->
+      <a class="navbar-brand text-primary" href="#">Electrofy</a>
+
+      <!-- Tab Group -->
+      <div class="d-flex justify-content-center w-100">
+        <ul class="nav nav-tabs " id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a routerLink="admin-home" class="nav-link active"  routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a routerLink="admin-orders" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Orders</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a routerLink="admin-products" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Products</a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <!-- Admin Dropdown (on the right side) -->
+      <div class="ml-auto">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="adminDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+            <li><a class="dropdown-item" href="#">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="container mt-4">
+    <router-outlet></router-outlet>
+  </div>
+  
+  <!-- Tab Content -->
+  <!-- <div class="tab-content container mt-4" id="myTabContent">
+    <div
+      class="tab-pane fade show active"
+      id="home"
+      role="tabpanel"
+      aria-labelledby="home-tab"
+    >
+      
+    </div>
+    <div
+      class="tab-pane fade"
+      id="orders"
+      role="tabpanel"
+      aria-labelledby="orders-tab"
+    >
+      
+    </div>
+    <div
+      class="tab-pane fade"
+      id="products"
+      role="tabpanel"
+      aria-labelledby="products-tab"
+    >
+      
+    </div>
+    <div
+      class="tab-pane fade"
+      id="disabled"
+      role="tabpanel"
+      aria-labelledby="disabled-tab"
+    >
+      
+    </div>
+  </div>
+   -->
+  
+  
+
+
+  <!-- Bootstrap JS -->
+  <script src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+
+</html>
