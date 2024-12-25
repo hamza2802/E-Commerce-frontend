@@ -8,10 +8,22 @@ import { OrdersDashboardComponent } from './admin/orders/order-dashboard/order-d
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminCategoryComponent } from './admin/admin-category/admin-category.component';
+import { AdminDeliveryagentsComponent } from './admin/admin-deliveryagents/admin-deliveryagents.component';
+import { AuthModule } from './auth/auth.module';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 const routes: Routes = [
   {
-   path :"",
+    path : "",
+    component : LoginComponent,
+  },
+  {
+    path : "register",
+    component : RegisterComponent
+  },
+  {
+   path :"admin-dashboard",
    component: AdminDashboardComponent,
    children:[
     {
@@ -29,9 +41,16 @@ const routes: Routes = [
     {
       path : "admin-category",
       component : AdminCategoryComponent
+    },
+    {
+      path : "admin-deliveryAgent",
+      component : AdminDeliveryagentsComponent
     }
    ]
   }
+
+    
+    
  
 ];
 

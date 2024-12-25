@@ -13,9 +13,10 @@ import { AppRoutingModule } from '../app-routing.module';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AdminProductsComponent } from './admin-products/admin-products.component';
 import { AdminCategoryComponent } from './admin-category/admin-category.component';
+import { AdminDeliveryagentsComponent } from './admin-deliveryagents/admin-deliveryagents.component';
 
 @NgModule({
-  declarations: [AdminDashboardComponent, AdminHomeComponent, AdminProductsComponent, AdminCategoryComponent],
+  declarations: [AdminDashboardComponent, AdminHomeComponent, AdminProductsComponent, AdminCategoryComponent, AdminDeliveryagentsComponent],
   imports: [
     CommonModule,
     MatToolbarModule,

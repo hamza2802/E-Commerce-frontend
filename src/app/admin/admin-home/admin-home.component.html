@@ -3,120 +3,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        .card {
-            width: 100%;
-            max-width: 200px; /* Adjust width */
-            margin: 0 auto;
-        }
-        .card-body {
-            padding: 10px;
-        }
-        .card img {
-            max-height: 120px; /* Adjust image size */
-        }
-        .card h1 {
-            font-size: 18px; /* Adjust title size */
-        }
-        .dummy-number {
-            font-size: 14px;
-            color: gray;
-        }
-    </style>
+    
 </head>
 <body>
 
-<div class="container">
-    <div class="row mt-3">
-      <div class="col-md-4">
-        <a routerLink="/admin/users">
-          <div class="card">
-            <div class="container d-flex justify-content-center align-items-center" style="height: 150px;">
-              <img class="img-fluid" src="assets/admin-images/users.png" alt="Users">
+    <div class="container py-4">
+        <!-- First Row -->
+        <div class="row g-4">
+            <div class="col-md-4">
+                <a routerLink="/admin/users" class="dashboard-link">
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <img src="assets/admin-images/users.png" alt="Users">
+                        </div>
+                        <div class="card-content">
+                            <h3>Users</h3>
+                            <div class="card-stats">
+                                <span class="stats-number">150</span>
+                                <span class="stats-label">Total Users</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
-            <div class="card-body text-center">
-              <h1>Users</h1>
-              <p class="dummy-number">Total: 150</p> <!-- Dummy number for users -->
+    
+            <div class="col-md-4">
+                <a routerLink="/admin/category" class="dashboard-link">
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <img src="assets/admin-images/category.png" alt="Category">
+                        </div>
+                        <div class="card-content">
+                            <h3>Category</h3>
+                            <div class="card-stats">
+                                <span class="stats-number">12</span>
+                                <span class="stats-label">Total Categories</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-4">
-        <a routerLink="/admin/category">
-          <div class="card">
-            <div class="container d-flex justify-content-center align-items-center" style="height: 150px;">
-              <img class="img-fluid" src="assets/admin-images/category.png" alt="Category">
+    
+            <div class="col-md-4">
+                <a routerLink="/admin-products" class="dashboard-link">
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <img src="assets/admin-images/products.png" alt="Products">
+                        </div>
+                        <div class="card-content">
+                            <h3>Products</h3>
+                            <div class="card-stats">
+                                <span class="stats-number">100</span>
+                                <span class="stats-label">Total Products</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
-            <div class="card-body text-center">
-              <h1>Category</h1>
-              <p class="dummy-number">Total: 12</p> <!-- Dummy number for categories -->
+        </div>
+    
+        <!-- Second Row -->
+        <div class="row g-4 mt-2">
+            <div class="col-md-4">
+                <a routerLink="/admin-orders" class="dashboard-link">
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <img src="assets/admin-images/orders.png" alt="Orders">
+                        </div>
+                        <div class="card-content">
+                            <h3>Orders</h3>
+                            <div class="card-stats">
+                                <span class="stats-label">Manage Orders</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-4">
-        <a routerLink="/admin-products">
-          <div class="card">
-            <div class="container d-flex justify-content-center align-items-center" style="height: 150px;">
-              <img class="img-fluid" src="assets/admin-images/products.png" alt="Products">
+    
+            <div class="col-md-4">
+                <a routerLink="/admin-deliveryAgent" class="dashboard-link">
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <img src="assets/admin-images/delivery-agents.png" alt="Delivery Agents">
+                        </div>
+                        <div class="card-content">
+                            <h3>Delivery Agents</h3>
+                            <div class="card-stats">
+                                <span class="stats-label">Manage Agents</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
-            <div class="card-body text-center">
-              <h1>Products</h1>
-              <p class="dummy-number">Total: 100</p> <!-- Dummy number for products -->
+    
+            <div class="col-md-4">
+                <a routerLink="/admin-products" class="dashboard-link">
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <img src="assets/admin-images/addproducts.png" alt="Add Products">
+                        </div>
+                        <div class="card-content">
+                            <h3>Add Products</h3>
+                            <div class="card-stats">
+                                <span class="stats-label">Create New</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
-          </div>
-        </a>
-      </div>
+        </div>
     </div>
-
-    <div class="row mt-3">
-      <div class="col-md-4">
-        <a routerLink="/admin-orders">
-          <div class="card">
-            <div class="container d-flex justify-content-center align-items-center" style="height: 150px;">
-              <img class="img-fluid" src="assets/admin-images/orders.png" alt="Orders">
-            </div>
-            <div class="card-body text-center">
-              <h1>Orders</h1>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-4">
-        <a routerLink="/admin/delivery-agents">
-          <div class="card">
-            <div class="container d-flex justify-content-center align-items-center" style="height: 150px;">
-              <img class="img-fluid" src="assets/admin-images/delivery-agents.png" alt="Delivery Agents">
-            </div>
-            <div class="card-body text-center">
-              <h1>Delivery Agents</h1>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-4">
-        <a routerLink="/admin-products">
-          <div class="card">
-            <div class="container d-flex justify-content-center align-items-center" style="height: 150px;">
-              <img class="img-fluid" src="assets/admin-images/addproducts.png" alt="Add Products">
-            </div>
-            <div class="card-body text-center">
-              <h1>Add Products</h1>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Hello  -->
-
-    <!-- Add Category Grid -->
-   
-</div>
 
 </body>
 </html>

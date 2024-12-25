@@ -1,109 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
-
-  <!-- Bootstrap CSS -->
-  <link href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-
-  <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-  <script src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-
-
-  
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg shadow-sm">
+        <div class="container-fluid px-4">
+            <!-- Brand Name with Icon -->
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="fas fa-bolt text-primary me-2"></i>
+                <span class="brand-text">Electrofy</span>
+            </a>
 
+            <!-- Tab Group -->
+            <div class="d-flex justify-content-center flex-grow-1">
+                <ul class="nav nav-pills" id="myTab" role="tablist">
+                    <li class="nav-item mx-1" role="presentation">
+                        <a routerLink="admin-home" class="nav-link d-flex align-items-center" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                            <i class="fas fa-home me-2"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1" role="presentation">
+                        <a routerLink="admin-orders" class="nav-link d-flex align-items-center" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                            <i class="fas fa-shopping-cart me-2"></i>
+                            Orders
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1" role="presentation">
+                        <a routerLink="admin-products" class="nav-link d-flex align-items-center" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                            <i class="fas fa-box me-2"></i>
+                            Products
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1" role="presentation">
+                        <a routerLink="admin-deliveryAgent" class="nav-link d-flex align-items-center" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                            <i class="fas fa-truck me-2"></i>
+                            Delivery Agent
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-<body>
-  
-  <nav class="navbar navbar-expand-lg" style="background-color: lightblue;">
-    <div class="container-fluid">
-      <!-- Brand Name -->
-      <a class="navbar-brand text-primary" href="#">Electrofy</a>
-
-      <!-- Tab Group -->
-      <div class="d-flex justify-content-center w-100">
-        <ul class="nav nav-tabs " id="myTab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <a routerLink="admin-home" class="nav-link active"  routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a routerLink="admin-orders" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Orders</a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a routerLink="admin-products" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Products</a>
-          </li>
-          
-        </ul>
-      </div>
-
-      <!-- Admin Dropdown (on the right side) -->
-      <div class="ml-auto">
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="adminDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            Admin
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="adminDropdown">
-            <li><a class="dropdown-item" href="#">Logout</a></li>
-          </ul>
+            <!-- Admin Dropdown -->
+            <div class="ms-auto">
+                <div class="dropdown">
+                    <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="adminDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user-circle me-2"></i>
+                        Admin
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="adminDropdown">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </nav>
-  <div class="container mt-4">
-    <router-outlet></router-outlet>
-  </div>
-  
-  <!-- Tab Content -->
-  <!-- <div class="tab-content container mt-4" id="myTabContent">
-    <div
-      class="tab-pane fade show active"
-      id="home"
-      role="tabpanel"
-      aria-labelledby="home-tab"
-    >
-      
-    </div>
-    <div
-      class="tab-pane fade"
-      id="orders"
-      role="tabpanel"
-      aria-labelledby="orders-tab"
-    >
-      
-    </div>
-    <div
-      class="tab-pane fade"
-      id="products"
-      role="tabpanel"
-      aria-labelledby="products-tab"
-    >
-      
-    </div>
-    <div
-      class="tab-pane fade"
-      id="disabled"
-      role="tabpanel"
-      aria-labelledby="disabled-tab"
-    >
-      
-    </div>
-  </div>
-   -->
-  
-  
+    </nav>
 
+    <div class="container mt-4">
+        <router-outlet></router-outlet>
+    </div>
 
-  <!-- Bootstrap JS -->
-  <script src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-  <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
-
 </html>
