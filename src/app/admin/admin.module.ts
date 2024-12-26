@@ -14,6 +14,7 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AdminProductsComponent } from './admin-products/admin-products.component';
 import { AdminCategoryComponent } from './admin-category/admin-category.component';
 import { AdminDeliveryagentsComponent } from './admin-deliveryagents/admin-deliveryagents.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AdminDashboardComponent, AdminHomeComponent, AdminProductsComponent, AdminCategoryComponent, AdminDeliveryagentsComponent],
@@ -27,7 +28,8 @@ import { AdminDeliveryagentsComponent } from './admin-deliveryagents/admin-deliv
     MatButtonModule,
     RouterModule,
     OrdersModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule // Add FormsModule for form validation
   ],
   exports: [AdminDashboardComponent,AdminHomeComponent]
 })

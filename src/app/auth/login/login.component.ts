@@ -46,8 +46,8 @@ export class LoginComponent {
             this.router.navigateByUrl('/admin-dashboard/admin-home');
           } else if (userRole[0].authority === 'ROLE_CUSTOMER') {
             this.router.navigateByUrl('/CustomerDashboard/${userName}');
-          }else if (userRole[0].authority === 'ROLE_EMPLOYEE') {
-            this.router.navigateByUrl('/EmployeeDashboard');
+          }else if (userRole[0].authority === 'ROLE_DELIVERY_AGENT') {
+            this.router.navigateByUrl('/delivery-dashboard');
           }
         },
         error:(err:HttpErrorResponse)=>{

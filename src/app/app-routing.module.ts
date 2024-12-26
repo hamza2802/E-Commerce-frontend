@@ -12,6 +12,7 @@ import { AdminDeliveryagentsComponent } from './admin/admin-deliveryagents/admin
 import { AuthModule } from './auth/auth.module';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { DeliveryAgentComponent } from './deliver-agent/delivery-agent/delivery-agent.component';
 
 const routes: Routes = [
   {
@@ -45,8 +46,13 @@ const routes: Routes = [
     {
       path : "admin-deliveryAgent",
       component : AdminDeliveryagentsComponent
-    }
+    },
+    
    ]
+  },
+  {
+    path : "delivery-dashboard",
+    component : DeliveryAgentComponent
   }
 
     
