@@ -9,10 +9,14 @@ import { DeliveryAgentService } from 'src/app/services/delivery-agent/deliveryAg
 export class AdminDeliveryagentsComponent implements OnInit {
   deliveryAgents: any[] = [];  // Use `any[]` for an array of objects
   selectedAgent: any | null = null; // To hold the selected agent data
-  agentName: string = '';
+  firstName: string = '';
+  lastName: string = '';
+  email: string = '';
+  password: string = '';
   zone: string = '';
   contactNumber: string = '';
-  details: string = '';
+  vehicleType: string = '';  // Add field for vehicleType
+  vehicleNumber: string = '';  // Add field for vehicleNumber
 
   constructor(private deliveryAgentService: DeliveryAgentService) {}
 
@@ -20,6 +24,7 @@ export class AdminDeliveryagentsComponent implements OnInit {
     this.fetchDeliveryAgents();  // Fetch agents when component loads
   }
 
+  // Fetch the list of delivery agents
   fetchDeliveryAgents(): void {
     this.deliveryAgentService.getDeliveryAgents(0, 10).subscribe({
       next: (response) => {
@@ -31,22 +36,36 @@ export class AdminDeliveryagentsComponent implements OnInit {
     });
   }
 
+  // Populate the modal with selected agent data
   populateModal(agent: any): void {
     this.selectedAgent = agent;
+    this.firstName = agent.firstname; 
+    this.lastName = agent.lastname;
+    this.email = agent.email;
+    this.zone = agent.deliveryZone;
+    this.contactNumber = agent.contactNumber;
+    this.vehicleType = agent.vehicleType;
+    this.vehicleNumber = agent.vehicleNumber;
   }
 
+  // Add a new delivery agent
   addDeliveryAgent(): void {
     const newAgent = {
-      firstname: this.agentName.split(' ')[0],  // Assuming first name is the first part of the input
-      lastname: this.agentName.split(' ')[1] || '', // Assuming last name is the second part
+      firstName: this.firstName,  // Use the first name directly
+      lastName: this.lastName,     // Use the last name directly
+      password: this.password,
+      email: this.email,
       contactNumber: parseInt(this.contactNumber),  // Convert the contact number to number
       deliveryZone: this.zone,
-      vehicleType: '',  // Default empty, unless you have this data in your form
-      vehicleNumber: '',  // Similarly, default empty
+      vehicleType: this.vehicleType,  // Include vehicleType
+      vehicleNumber: this.vehicleNumber,  // Include vehicleNumber
     };
 
     this.deliveryAgentService.addDeliveryAgent(newAgent).subscribe({
+      
+      
       next: (response) => {
+        console.log(newAgent);
         this.deliveryAgents.push(response);  // Add the new agent to the table
         this.resetForm();
         alert('Agent added successfully!');
@@ -57,10 +76,14 @@ export class AdminDeliveryagentsComponent implements OnInit {
     });
   }
 
+  // Reset form fields
   resetForm(): void {
-    this.agentName = '';
+    this.firstName = '';
+    this.lastName = '';
+    this.email = '';
     this.zone = '';
     this.contactNumber = '';
-    this.details = '';
+    this.vehicleType = '';
+    this.vehicleNumber = '';
   }
 }

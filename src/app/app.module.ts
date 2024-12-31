@@ -21,6 +21,7 @@ import { JwtInterceptor } from './jwt.interceptor';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import { JwtInterceptor } from './jwt.interceptor';
     MatTabsModule,
     FormsModule,
     AuthModule,
-    HttpClientModule
+    HttpClientModule,
+    
 
   ],
   providers: [{

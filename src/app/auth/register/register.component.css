@@ -1,0 +1,186 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Page Layout */
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1920/1080') center/cover;
+}
+
+/* Container Styles */
+.register-container {
+  width: 100%;
+  max-width: 450px;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  transform: translateY(0);
+  transition: all 0.3s ease;
+}
+
+.register-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Heading Styles */
+h2 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+  position: relative;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #3498db, #2ecc71);
+  border-radius: 3px;
+}
+
+/* Form Group Styles */
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+/* Label Styles */
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #34495e;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* Input Field Styles */
+input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+input:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* Error Message Styles */
+small {
+  color: #e74c3c;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  display: block;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+small.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Button Styles */
+button {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(90deg, #3498db, #2ecc71);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+button:hover:not([disabled]) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+}
+
+button:active:not([disabled]) {
+  transform: translateY(0);
+}
+
+button[disabled] {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+/* Form Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+form {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Floating Label Effect */
+.form-group {
+  position: relative;
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label {
+  transform: translateY(-25px) scale(0.8);
+  color: #3498db;
+}
+
+/* Form Validation States */
+input.ng-valid.ng-touched {
+  border-color: #2ecc71;
+}
+
+input.ng-valid.ng-touched:focus {
+  box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .register-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  input {
+    padding: 0.7rem 0.9rem;
+  }
+}
