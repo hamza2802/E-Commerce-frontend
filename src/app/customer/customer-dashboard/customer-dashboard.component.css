@@ -1,0 +1,11 @@
+.custom-navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensures the navbar stays above other content */
+  }
+  
+  .content {
+    margin-top: 70px; /* Adjust this value depending on the navbar height */
+  }
+  

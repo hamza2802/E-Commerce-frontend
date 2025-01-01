@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { AuthModule } from './auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './jwt.interceptor';
+import { CustomerModule } from './customer/customer.module';
+
 
 
 
@@ -43,6 +45,8 @@ import { JwtInterceptor } from './jwt.interceptor';
     FormsModule,
     AuthModule,
     HttpClientModule,
+    CustomerModule,
+    
     
 
   ],

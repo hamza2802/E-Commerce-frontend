@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-commerce Navbar</title>
+  <link href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  
+  
+</head>
+<body>
+    
+  <nav class="navbar navbar-expand-lg sticky-top shadow-sm custom-navbar">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-light" routerLink="/">
+        ShopEase
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/customer-dashboard/customer-home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/shop">Shop</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-light" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Categories
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/categories/electronics">Electronics</a></li>
+              <li><a class="dropdown-item" routerLink="/categories/fashion">Fashion</a></li>
+              <li><a class="dropdown-item" routerLink="/categories/home-kitchen">Home & Kitchen</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" routerLink="/categories/others">More Categories</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" routerLink="/contact">Contact</a>
+          </li>
+        </ul>
+        <form class="d-flex search-bar" role="search">
+          <input class="form-control" type="search" placeholder="Search products" aria-label="Search">
+          <button class="btn btn-light" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+        <div class="ms-3">
+          <a routerLink="" class="btn btn-outline-light me-2">Login</a>
+          <a routerLink="/signup" class="btn btn-primary">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

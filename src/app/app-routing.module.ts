@@ -13,6 +13,9 @@ import { AuthModule } from './auth/auth.module';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { DeliveryAgentComponent } from './deliver-agent/delivery-agent/delivery-agent.component';
+import { CustomerDashboardComponent } from './customer/customer-dashboard/customer-dashboard.component';
+import { CustomerHomeComponent } from './customer/customer-home/customer-home.component';
+import { CustomerHeaderComponent } from './customer/customer-header/customer-header.component';
 
 const routes: Routes = [
   {
@@ -53,6 +56,20 @@ const routes: Routes = [
   {
     path : "delivery-dashboard",
     component : DeliveryAgentComponent
+  },
+  {
+    path : "customer-dashboard",
+    component : CustomerDashboardComponent,
+    children : [
+      {
+        path : "customer-home",
+        component : CustomerHomeComponent
+      },
+      {
+        path : "customer-headers",
+        component : CustomerHeaderComponent
+      }
+    ]
   }
 
     

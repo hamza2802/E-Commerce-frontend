@@ -1,0 +1,32 @@
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .price {
+    font-weight: bold;
+    color: #28a745;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .cart-summary {
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+  }
+  
+  .cart-summary h4 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .cart-summary .list-group-item {
+    font-size: 16px;
+  }
+  
+  .cart-summary button {
+    margin-top: 10px;
+  }
+  
