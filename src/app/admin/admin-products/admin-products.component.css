@@ -34,3 +34,25 @@ button {
 .btn-group button {
     margin-right: 10px;
 }
+
+/* Custom styles for carousel arrows */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #343a40; /* Dark gray */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+/* Smaller image size in carousel */
+.carousel img {
+  max-height: 300px;
+  object-fit: contain;
+}
+
+.toast-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1050;
+  }
