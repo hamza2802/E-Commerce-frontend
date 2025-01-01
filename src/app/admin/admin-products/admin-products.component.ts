@@ -18,6 +18,8 @@ export class AdminProductsComponent implements OnInit {
     };
     selectedProduct: any = null;
     imageUrls: File[] = []; // Array to hold multiple files
+    
+   updatedProduct: any = {};
 
     showSuccessToast = false;
 
@@ -80,22 +82,35 @@ export class AdminProductsComponent implements OnInit {
         this.selectedProduct = product;
     }
 
-    updateProduct() {
-      // Perform the logic to update the product with the new details (e.g., make an API call)
-      console.log('Updated Product:', this.selectedProduct);
-      // Add logic to update the product in the database, then show a success message
-    }
+    editProduct(product: any): void {
+      console.log('Editing product:', product); // Log the entire product object
+      this.selectedProduct = { ...product }; // Create a copy to avoid direct reference
+      this.updatedProduct = { ...product }; // Bind product details to the form
+      console.log('Updated Product:', this.updatedProduct); // Log the updatedProduct to check if the id is copied
+  }
+  
+  
+    // Method to save the updated product details
+    saveUpdatedProduct(): void {
+      console.log('Updated Product:', this.updatedProduct);
+      
+      // Call the updateProduct method from the service
+      this.productService.updateProduct(this.updatedProduct).subscribe(
+          (response) => {
+              console.log('Product updated successfully:', response);
+              // You can also update the products list after successful update
+              this.loadProducts(); 
+              this.resetForm(); // Reset form or perform any other action after saving
+          },
+          (error) => {
+              console.error('Error updating product:', error);
+              // Handle error appropriately, show an error message to the user
+          }
+      );
+  }
+  
+  }
 
-    editProduct(product: any) {
-      this.selectedProduct = { ...product }; // Prefill the modal with selected product data
-      this.imageUrls = []; // Reset the image files when editing a product
-    }
-
-    bootstrap: any;
-
-    hide(): void {
-      const addProductModal = new this.bootstrap.Modal(document.getElementById('addProductModal')!);
-      addProductModal.hide(); // This will hide the modal
-    }
     
-}
+    
+

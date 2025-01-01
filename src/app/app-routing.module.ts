@@ -17,6 +17,7 @@ import { CustomerDashboardComponent } from './customer/customer-dashboard/custom
 import { CustomerHomeComponent } from './customer/customer-home/customer-home.component';
 import { CustomerHeaderComponent } from './customer/customer-header/customer-header.component';
 
+
 const routes: Routes = [
   {
     path : "",
@@ -50,6 +51,7 @@ const routes: Routes = [
       path : "admin-deliveryAgent",
       component : AdminDeliveryagentsComponent
     },
+    
     
    ]
   },

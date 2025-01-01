@@ -1,38 +1,100 @@
-<div class="container mt-4">
-    <h1>Welcome to ShopEase!</h1>
-    <p>Browse our latest products below.</p>
-  
-    <div class="row">
-      <div class="col-md-4" *ngFor="let product of products">
-        <div class="card mb-4 shadow-sm">
-          <img [src]="product.imageUrl" class="card-img-top" alt="{{ product.name }}">
-          <div class="card-body">
-            <h5 class="card-title">{{ product.name }}</h5>
-            <p class="card-text">{{ product.description }}</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="price">${{ product.price }}</span>
-              <div class="d-flex">
-                <button class="btn btn-success me-2" (click)="addToCart(product)">Add to Cart</button>
-                <a [routerLink]="['/product', product.id]" class="btn btn-primary">View Product</a>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <!-- Carousel Section -->
+        <div id="productCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <!-- Static Image from Assets (Laptops Image) -->
+            <div class="carousel-item active">
+              <img 
+                src="assets/customer/laptops.jpg" 
+                class="d-block w-100" 
+                alt="Laptops Image" 
+                style="height: 400px; object-fit: cover;">
+              <div class="carousel-caption d-none d-md-block">
+                <h5>Featured Laptop Collection</h5>
+                <p>Explore our latest laptop range.</p>
+              </div>
+            </div>
+
+            <!-- Second Image: Mobile -->
+            <div class="carousel-item">
+                <img 
+                  src="assets/customer/Mobile.jpg" 
+                  class="d-block w-100" 
+                  alt="Mobile Image" 
+                  style="height: 400px; object-fit: cover;">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Latest Mobile Phones</h5>
+                  <p>Check out our top-selling mobile phones.</p>
+                </div>
+            </div>
+
+            <!-- Third Image: Tablets (Placeholder) -->
+            <div class="carousel-item">
+                <img 
+                  src="assets/customer/tablets.jpg" 
+                  class="d-block w-100" 
+                  alt="Tablets Image" 
+                  style="height: 400px; object-fit: cover;">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Explore Latest Tablets</h5>
+                  <p>Find the best tablets for you.</p>
+                </div>
+            </div>
+          </div>
+          
+          <!-- Carousel Controls -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      
+        <div class="container mt-4">
+            <!-- Product Grid Section -->
+            <div class="container mt-4">
+              <!-- Mobile Phones Section -->
+              <h2>Mobile Phones</h2>
+              <p>Check out our latest mobile phones below.</p>
+            
+              <div class="row">
+                <div class="col-md-4" *ngFor="let product of mobilePhones; let i = index">
+                  <div class="card mb-4 shadow-sm">
+                    <div class="product-image-container position-relative">
+                      <!-- Display the first image in the imageUrls array -->
+                      <img [src]="product.imageUrls[0]" class="card-img-top" alt="{{ product.productName }}" style="height: 300px; object-fit: cover;">
+                      <div class="overlay d-flex align-items-center justify-content-center">
+                        <button *ngIf="i < 3" class="btn btn-primary view-all-btn" (click)="viewAll(product)">
+                          View All
+                        </button>
+                        <button *ngIf="i >= 3" class="btn btn-success buy-now-btn" (click)="buyNow(product)">
+                          Buy Now
+                        </button>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <!-- Display the product details -->
+                      <h5 class="card-title">{{ product.productName }}</h5>
+                      <p class="card-text">{{ product.productDescription }}</p>
+                      <span class="price">${{ product.productDiscountedPrice }}</span>
+                      <span class="original-price text-muted" style="text-decoration: line-through;">${{ product.productActualPrice }}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  
-    <!-- Cart Summary Section -->
-    <div class="cart-summary mt-4">
-      <h4>Cart</h4>
-      <ul class="list-group">
-        <li class="list-group-item" *ngFor="let cartItem of cartItems">
-          {{ cartItem.name }} - ${{ cartItem.price }}
-        </li>
-      </ul>
-      <div *ngIf="cartItems.length > 0">
-        <p>Total: ${{ getTotalPrice() }}</p>
-        <button class="btn btn-primary">Proceed to Checkout</button>
-      </div>
-    </div>
-  </div>
-  
+          
+</body>
+</html>
