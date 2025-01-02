@@ -1,0 +1,39 @@
+<div class="container mt-5">
+    <h2 class="mb-4">Your Cart</h2>
+    <div *ngIf="cartItems.length > 0; else emptyCart">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="list-group">
+            <div *ngFor="let item of cartItems" class="list-group-item">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <img [src]="item.image" alt="{{ item.name }}" class="cart-item-image">
+                  <span>{{ item.name }}</span>
+                </div>
+                <div>
+                  <span class="price">{{ item.price | currency }}</span>
+                  <button class="btn btn-danger btn-sm" (click)="removeFromCart(item)">Remove</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Summary</h4>
+              <p class="card-text">
+                Total Items: {{ cartItems.length }} <br>
+                Total Price: {{ getTotalPrice() | currency }}
+              </p>
+              <button class="btn btn-primary btn-block" (click)="checkout()">Checkout</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #emptyCart>
+      <p>Your cart is empty.</p>
+    </ng-template>
+  </div>
+  

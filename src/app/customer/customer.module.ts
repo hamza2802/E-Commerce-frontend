@@ -4,6 +4,12 @@ import { CustomerDashboardComponent } from './customer-dashboard/customer-dashbo
 import { CustomerHomeComponent } from './customer-home/customer-home.component';
 import { RouterModule } from '@angular/router';
 import { CustomerHeaderComponent } from './customer-header/customer-header.component';
+import { CustomerCartComponent } from './customer-cart/customer-cart.component';
+import { CategoryMobileComponent } from './category-mobile/category-mobile.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+
+
+
 
 
 
@@ -12,11 +18,17 @@ import { CustomerHeaderComponent } from './customer-header/customer-header.compo
   declarations: [
     CustomerDashboardComponent,
     CustomerHomeComponent,
-    CustomerHeaderComponent
+    CustomerHeaderComponent,
+    CustomerCartComponent,
+    CategoryMobileComponent,
+    ProductDetailsComponent,
+    
+   
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    
   ]
 })
 export class CustomerModule { }

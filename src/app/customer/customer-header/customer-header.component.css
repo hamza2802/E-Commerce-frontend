@@ -1,60 +1,112 @@
-/* Custom navbar styling */
 .custom-navbar {
-    background: linear-gradient(90deg, #4facfe, #00f2fe);
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    padding: 1rem 0;
   }
   
   .navbar-brand {
-    font-size: 24px;
+    font-size: 1.8rem;
+    background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
   }
-  
-  .navbar-nav .nav-link {
-    font-size: 16px;
-    margin-right: 15px;
-    transition: color 0.3s ease-in-out;
+
+  .nav-link {
+    color: #e0e0e0 !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
   }
-  
-  .navbar-nav .nav-link:hover {
-    color: #ffeb3b !important;
-    text-decoration: underline;
+
+  .nav-link:hover {
+    color: #00d2ff !important;
   }
-  
-  .dropdown-menu {
-    border-radius: 8px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  .search-bar {
+    max-width: 400px;
   }
-  
-  .search-bar input {
-    border-radius: 50px 0 0 50px;
+
+  .search-bar .form-control {
+    border-radius: 20px 0 0 20px;
     border: none;
-    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
   }
-  
-  .search-bar button {
-    border-radius: 0 50px 50px 0;
+
+  .search-bar .form-control::placeholder {
+    color: #999;
+  }
+
+  .search-bar .btn {
+    border-radius: 0 20px 20px 0;
+    background: #00d2ff;
     border: none;
-    background-color: #ffffff;
-    padding: 10px 20px;
+    color: #1a1a1a;
   }
-  
+
+  .cart-btn {
+    position: relative;
+    padding: 0.5rem 1rem;
+    color: #e0e0e0;
+    transition: color 0.3s ease;
+  }
+
+  .cart-btn:hover {
+    color: #00d2ff;
+  }
+
+  .cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #00d2ff;
+    color: #1a1a1a;
+    border-radius: 50%;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+  }
+
+  .auth-buttons .btn {
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+  }
+
   .btn-outline-light {
-    color: #ffffff;
-    border-color: #ffffff;
+    border-color: #00d2ff;
+    color: #00d2ff;
   }
-  
+
   .btn-outline-light:hover {
-    color: #4facfe;
-    background-color: #ffffff;
+    background: #00d2ff;
+    border-color: #00d2ff;
+    color: #1a1a1a;
   }
-  
+
   .btn-primary {
-    background-color: #ffeb3b;
-    border-color: #ffeb3b;
-    color: #000;
+    background: #00d2ff;
+    border: none;
+    color: #1a1a1a;
   }
-  
+
   .btn-primary:hover {
-    background-color: #ffc107;
-    border-color: #ffc107;
+    background: #00b8e6;
   }
-  
+
+  .dropdown-menu {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+  }
+
+  .dropdown-item {
+    color: #e0e0e0;
+  }
+
+  .dropdown-item:hover {
+    background: #404040;
+    color: #00d2ff;
+  }
+
+  .dropdown-divider {
+    border-color: #404040;
+  }

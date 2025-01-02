@@ -16,6 +16,8 @@ import { DeliveryAgentComponent } from './deliver-agent/delivery-agent/delivery-
 import { CustomerDashboardComponent } from './customer/customer-dashboard/customer-dashboard.component';
 import { CustomerHomeComponent } from './customer/customer-home/customer-home.component';
 import { CustomerHeaderComponent } from './customer/customer-header/customer-header.component';
+import { CategoryMobileComponent } from './customer/category-mobile/category-mobile.component';
+import { ProductDetailsComponent } from './customer/product-details/product-details.component';
 
 
 const routes: Routes = [
@@ -59,6 +61,9 @@ const routes: Routes = [
     path : "delivery-dashboard",
     component : DeliveryAgentComponent
   },
+
+
+  // Customer Routing 
   {
     path : "customer-dashboard",
     component : CustomerDashboardComponent,
@@ -70,6 +75,14 @@ const routes: Routes = [
       {
         path : "customer-headers",
         component : CustomerHeaderComponent
+      },
+      {
+        path : "customer-mobile",
+        component : CategoryMobileComponent
+      },
+      {
+        path : "product-details",
+        component : ProductDetailsComponent
       }
     ]
   }

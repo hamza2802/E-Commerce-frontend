@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="product-details-container">
+        <div class="product-image">
+          <div class="main-image-card">
+            <img [src]="mainImage" alt="{{ product.productName }}">
+          </div>
+          <div class="image-thumbnails">
+            <div class="thumbnail-card" *ngFor="let image of product.imageUrls" (click)="changeMainImage(image)">
+              <img [src]="image" alt="Product Image Thumbnail">
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <h1>{{ product.productName }}</h1>
+          <ul class="description">
+            <li *ngFor="let point of product.productDescription.split('. ')">
+              {{ point }}
+            </li>
+          </ul>
+          <div class="price-container">
+            <span class="price">₹{{ product.productDiscountedPrice }}</span>
+            <span class="original-price">₹{{ product.productActualPrice }}</span>
+          </div>
+          <button class="btn btn-primary" (click)="addToCart(product)">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+      
+      
+      
+    
+</body>
+</html>
