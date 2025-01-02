@@ -18,6 +18,7 @@ import { CustomerHomeComponent } from './customer/customer-home/customer-home.co
 import { CustomerHeaderComponent } from './customer/customer-header/customer-header.component';
 import { CategoryMobileComponent } from './customer/category-mobile/category-mobile.component';
 import { ProductDetailsComponent } from './customer/product-details/product-details.component';
+import { ViewCustomerComponent } from './admin/view-customer/view-customer.component';
 
 
 const routes: Routes = [
@@ -53,6 +54,10 @@ const routes: Routes = [
       path : "admin-deliveryAgent",
       component : AdminDeliveryagentsComponent
     },
+    {
+      path : "view-customer",
+      component : ViewCustomerComponent
+    }
     
     
    ]

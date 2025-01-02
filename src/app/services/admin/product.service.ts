@@ -22,9 +22,9 @@ export class ProductService {
     }
 
     updateProduct(product: any): Observable<any> {
-      console.log(product.id);
+      console.log(product);
       
-      return this.http.put<any>(`${this.apiUrl}/${product.id}`, product);  // Correct API call with product ID
+      return this.http.put<any>(`${this.apiUrl}/${product.productId}`, product);  // Correct API call with product ID
   }
   
   

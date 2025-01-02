@@ -15,12 +15,13 @@ import { AdminProductsComponent } from './admin-products/admin-products.componen
 import { AdminCategoryComponent } from './admin-category/admin-category.component';
 import { AdminDeliveryagentsComponent } from './admin-deliveryagents/admin-deliveryagents.component';
 import { FormsModule } from '@angular/forms';
+import { ViewCustomerComponent } from './view-customer/view-customer.component';
 
 
 
 
 @NgModule({
-  declarations: [AdminDashboardComponent, AdminHomeComponent, AdminProductsComponent, AdminCategoryComponent, AdminDeliveryagentsComponent],
+  declarations: [AdminDashboardComponent, AdminHomeComponent, AdminProductsComponent, AdminCategoryComponent, AdminDeliveryagentsComponent, ViewCustomerComponent],
   imports: [
     CommonModule,
     MatToolbarModule,

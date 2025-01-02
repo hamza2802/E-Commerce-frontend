@@ -1,0 +1,26 @@
+.table {
+    font-size: 0.9rem;
+  }
+  
+  thead th {
+    text-transform: uppercase;
+  }
+  
+  .btn-info {
+    color: white;
+    background-color: var(--primary-color);
+    border: none;
+  }
+  
+  .btn-info:hover {
+    background-color: var(--secondary-color);
+  }
+  
+  .pagination .page-link {
+    color: var(--primary-color);
+  }
+  
+  .pagination .page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
