@@ -76,6 +76,40 @@ export class AdminDeliveryagentsComponent implements OnInit {
     });
   }
 
+  // Update the selected delivery agent
+
+  // Update an existing delivery agent
+  updateDeliveryAgent(): void {
+    if (this.selectedAgent) {
+      const updatedAgent = {
+        id: this.selectedAgent.id,  // Assuming the agent has an id property
+        firstname: this.firstName,
+        lastname: this.lastName,
+        password: this.password,
+        email: this.email,
+        contactNumber: parseInt(this.contactNumber),  // Convert the contact number to number
+        deliveryZone: this.zone,
+        vehicleType: this.vehicleType,
+        vehicleNumber: this.vehicleNumber,
+      };
+
+      this.deliveryAgentService.updateDeliveryAgent(updatedAgent).subscribe({
+        next: (response) => {
+          // Update the agent in the list
+          const index = this.deliveryAgents.findIndex(agent => agent.id === updatedAgent.id);
+          if (index !== -1) {
+            this.deliveryAgents[index] = response;
+          }
+          this.resetForm();
+          alert('Agent updated successfully!');
+        },
+        error: (error) => {
+          console.error('Error updating delivery agent:', error);
+        }
+      });
+    }
+  }
+
   // Reset form fields
   resetForm(): void {
     this.firstName = '';

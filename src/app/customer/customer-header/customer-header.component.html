@@ -42,10 +42,10 @@
           <input class="form-control" type="search" placeholder="Search products" aria-label="Search">
           <button class="btn" type="submit"><i class="bi bi-search"></i></button>
         </form>
-        <a href="/cart" class="cart-btn me-3">
+        <a routerLink="/customer-dashboard/customer-cart" class="cart-btn me-3" (click)="updateCartItemCount()">
           <i class="bi bi-cart3 fs-4"></i>
-          <span class="cart-count">3</span>
-        </a>
+          <span class="cart-count">{{ cartItemCount }}</span>
+        </a>        
         <div class="auth-buttons">
           <a routerLink="/login" class="btn btn-outline-light me-2">Login</a>
           <a routerLink="/signup" class="btn btn-primary">Sign Up</a>

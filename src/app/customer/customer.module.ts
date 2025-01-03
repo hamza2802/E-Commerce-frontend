@@ -4,9 +4,10 @@ import { CustomerDashboardComponent } from './customer-dashboard/customer-dashbo
 import { CustomerHomeComponent } from './customer-home/customer-home.component';
 import { RouterModule } from '@angular/router';
 import { CustomerHeaderComponent } from './customer-header/customer-header.component';
-import { CustomerCartComponent } from './customer-cart/customer-cart.component';
+
 import { CategoryMobileComponent } from './category-mobile/category-mobile.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { CartComponent } from './customer-cart/customer-cart.component';
 
 
 
@@ -19,9 +20,9 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     CustomerDashboardComponent,
     CustomerHomeComponent,
     CustomerHeaderComponent,
-    CustomerCartComponent,
     CategoryMobileComponent,
     ProductDetailsComponent,
+    CartComponent
     
    
   ],

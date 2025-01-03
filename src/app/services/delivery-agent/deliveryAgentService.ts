@@ -21,4 +21,10 @@ export class DeliveryAgentService {
   addDeliveryAgent(agent: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/add`, agent);
   }
+  updateDeliveryAgent(agent: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/update/${agent.id}`, agent);
+  }
+
 }
+
+

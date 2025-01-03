@@ -19,6 +19,8 @@ import { CustomerHeaderComponent } from './customer/customer-header/customer-hea
 import { CategoryMobileComponent } from './customer/category-mobile/category-mobile.component';
 import { ProductDetailsComponent } from './customer/product-details/product-details.component';
 import { ViewCustomerComponent } from './admin/view-customer/view-customer.component';
+import { CartComponent } from './customer/customer-cart/customer-cart.component';
+
 
 
 const routes: Routes = [
@@ -45,7 +47,7 @@ const routes: Routes = [
     {
       path : "admin-products",
       component :AdminProductsComponent
-    },
+    },  
     {
       path : "admin-category",
       component : AdminCategoryComponent
@@ -88,6 +90,10 @@ const routes: Routes = [
       {
         path : "product-details",
         component : ProductDetailsComponent
+      },
+      {
+        path  : "customer-cart",
+        component : CartComponent
       }
     ]
   }

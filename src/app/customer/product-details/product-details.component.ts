@@ -1,30 +1,35 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Router } from '@angular/router';
+import { CartService } from 'src/app/services/customer/cart.service';
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.css']
+  styleUrls: ['./product-details.component.css'],
 })
 export class ProductDetailsComponent implements OnInit {
   product: any;
   mainImage: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
-    this.product = history.state.product; // Retrieve the product from the state
+    this.product = history.state.product;
     if (!this.product) {
-      this.router.navigate(['/']); // Redirect to home if no product data is found
+      this.router.navigate(['/home']);
     }
-    this.mainImage = this.product.imageUrls[0]; // Set the first image as the main image
+    this.mainImage = this.product.imageUrls[0];
   }
 
   addToCart(product: any) {
-    console.log('Adding to cart:', product.productName);
+    this.cartService.addToCart(product).subscribe({
+      next: () => alert(`${product.productName} added to cart successfully!`),
+      error: (err) => console.error('Failed to add to cart:', err),
+    });
   }
 
   changeMainImage(image: string) {
-    this.mainImage = image; // Update the main image when a thumbnail is clicked
+    this.mainImage = image;
   }
 }

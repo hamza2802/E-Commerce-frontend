@@ -1,186 +1,121 @@
-/* Reset and Base Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Page Layout */
-body {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1920/1080') center/cover;
-}
-
-/* Container Styles */
 .register-container {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
   width: 100%;
-  max-width: 450px;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-  transform: translateY(0);
-  transition: all 0.3s ease;
+  max-width: 500px;
+  margin: 2rem auto;
 }
 
-.register-container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-/* Heading Styles */
-h2 {
-  color: #2c3e50;
+.login-header {
   text-align: center;
   margin-bottom: 2rem;
-  font-size: 2rem;
-  font-weight: 600;
-  position: relative;
 }
 
-h2::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  height: 3px;
-  background: linear-gradient(90deg, #3498db, #2ecc71);
-  border-radius: 3px;
-}
-
-/* Form Group Styles */
-.form-group {
+.logo {
+  width: 140px;
+  height: 100px;
   margin-bottom: 1.5rem;
+}
+
+h2 {
+  color: #333;
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.form-group {
   position: relative;
+  margin-bottom: 1.5rem;
 }
 
-/* Label Styles */
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #34495e;
-  font-weight: 500;
-  font-size: 0.9rem;
-}
-
-/* Input Field Styles */
-input {
-  width: 100%;
-  padding: 0.8rem 1rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 10px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  background: white;
-}
-
-input:focus {
-  border-color: #3498db;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-}
-
-/* Error Message Styles */
-small {
-  color: #e74c3c;
-  font-size: 0.8rem;
-  margin-top: 0.25rem;
-  display: block;
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: all 0.3s ease;
-}
-
-small.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Button Styles */
-button {
+.form-group input {
   width: 100%;
   padding: 1rem;
-  background: linear-gradient(90deg, #3498db, #2ecc71);
+  border: 2px solid #e1e1e1;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #2196F3;
+  outline: none;
+}
+
+.form-group label {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  background: transparent;
+  transition: all 0.3s ease;
+  color: #666;
+  pointer-events: none;
+}
+
+.form-group input:focus ~ label,
+.form-group input:valid ~ label {
+  top: -0.5rem;
+  left: 0.8rem;
+  font-size: 0.75rem;
+  padding: 0 0.4rem;
+  background: white;
+  color: #2196F3;
+}
+
+.form-group small {
+  color: #dc3545;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  display: block;
+  position: absolute;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 1rem;
+  background: #2196F3;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 0.5rem;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  transition: background 0.3s;
+  margin-top: 1rem;
 }
 
-button:hover:not([disabled]) {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+button[type="submit"]:hover {
+  background: #1976D2;
 }
 
-button:active:not([disabled]) {
-  transform: translateY(0);
-}
-
-button[disabled] {
-  background: #95a5a6;
+button[type="submit"]:disabled {
+  background: #ccc;
   cursor: not-allowed;
 }
 
-/* Form Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.login-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #666;
 }
 
-form {
-  animation: fadeIn 0.5s ease-out;
+.login-link a {
+  color: #2196F3;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 0.5rem;
 }
 
-/* Floating Label Effect */
-.form-group {
-  position: relative;
-}
-
-input:focus + label,
-input:not(:placeholder-shown) + label {
-  transform: translateY(-25px) scale(0.8);
-  color: #3498db;
-}
-
-/* Form Validation States */
-input.ng-valid.ng-touched {
-  border-color: #2ecc71;
-}
-
-input.ng-valid.ng-touched:focus {
-  box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
-}
-
-/* Responsive Design */
-@media (max-width: 480px) {
+@media (max-width: 576px) {
   .register-container {
     margin: 1rem;
     padding: 1.5rem;
   }
   
-  h2 {
-    font-size: 1.5rem;
-  }
-  
-  input {
-    padding: 0.7rem 0.9rem;
+  .form-group {
+    margin-bottom: 2rem;
   }
 }

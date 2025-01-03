@@ -9,6 +9,13 @@
     background-color: #ffffff; /* Optional: adds a background for empty space */
     border-radius: 5px;
 }
+.product-image-container {
+    position: relative;
+    padding: 10px; /* Add padding between the image and the card */
+    height: 220px; /* Adjust height as needed */
+    overflow: hidden;
+    box-sizing: border-box;
+}
 
 .card {
     display: flex;
@@ -46,12 +53,7 @@
     font-size: 1.1em;
 }
 
-.price {
-    font-weight: bold;
-    color: rgb(16, 208, 233);
-    display: block;
-    font-size: 1.2em; /* Larger size for discounted price */
-}
+
 
 .original-price {
     text-decoration: line-through;
@@ -63,6 +65,23 @@
 
 .add-to-cart-btn {
     margin-left: auto;
+    font-weight: bold;
+    font-style: unset;
+    background-color:  #efeb35;
+    color: black;
+    align-items: center; 
+    border-radius: 4px; 
+    border-style: solid; 
+    border-width: 0; 
+    display: inline-flex 
+; 
+    font-size: 15px; 
+    font-weight: 600; 
+    height: 35px; 
+    justify-content: center; 
+    padding-left: 28px; 
+    padding-right: 28px; 
+    transition: all .3s ease-out 0s;
 }
 
 .product-card {
@@ -90,7 +109,7 @@
 .price {
     font-weight: bold;
     font-size: 1.2em;
-    color: rgb(16, 208, 233);
+    color:#045bc4;
 }
 
 .original-price {
@@ -101,5 +120,6 @@
 
 .add-to-cart-btn {
     margin-left: auto;
+    
 }
 
