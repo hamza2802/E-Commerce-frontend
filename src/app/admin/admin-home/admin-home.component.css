@@ -1,143 +1,145 @@
-/* Root Variables for Modern Dashboard Colors */
-:root {
-    --primary-color: #5A67D8; /* Lighter primary color */
-    --text-primary: #2D3748;
-    --text-secondary: #718096; /* Lighter text for secondary info */
-    --bg-light: #F7FAFC;  /* Light background */
-    --transition: all 0.3s ease;
-    --card-shadow: rgba(0, 0, 0, 0.1); /* Soft shadow */
-    --card-hover-shadow: 0 8px 30px rgba(90, 103, 216, 0.2); /* Enhanced hover shadow */
-  }
-  
-  body {
-    background-color: var(--bg-light);
-    color: var(--text-primary);
-  }
-  
-  /* Dashboard Card Styles */
-  .dashboard-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-  
-  .dashboard-card {
-    background: white;
-    border-radius: 16px;
-    padding: 2rem;
-    height: 100%;
-    transition: var(--transition);
-    box-shadow: var(--card-shadow);
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .dashboard-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, transparent, rgba(90, 103, 216, 0.05));
-    opacity: 0;
-    transition: var(--transition);
-  }
-  
-  .dashboard-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--card-hover-shadow);
-  }
-  
-  .dashboard-card:hover::before {
-    opacity: 1;
-  }
-  
-  /* Card Icon Styles */
-  .card-icon {
-    width: 90px;
-    height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 16px;
-    background: rgba(90, 103, 216, 0.1);
-    padding: 1.2rem;
-  }
-  
-  .card-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transition: var(--transition);
-  }
-  
-  .dashboard-card:hover .card-icon img {
-    transform: scale(1.1);
-  }
-  
-  /* Card Content Styles */
-  .card-content {
-    flex: 1;
-  }
-  
-  .card-content h3 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-  
-  .card-stats {
-    margin-top: 0.5rem;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .stats-number {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--primary-color);
-  }
-  
-  .stats-label {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-  }
-  
-  /* Responsive Adjustments */
-  @media (max-width: 768px) {
-    .dashboard-card {
-      padding: 1.5rem;
-      gap: 1.5rem;
-    }
-  
-    .card-icon {
-      width: 70px;
-      height: 70px;
-    }
-  
-    .stats-number {
-      font-size: 1.5rem;
-    }
-  }
-  
-  /* Animation for numbers */
-  @keyframes countUp {
-    from {
-      transform: translateY(10px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-  
-  .stats-number {
-    animation: countUp 0.6s ease-out forwards;
-  }
-  
+:root { 
+  --primary-color: #5A67D8; /* Lighter primary color */ 
+  --text-primary: #2D3748; 
+  --text-secondary: #718096; /* Lighter text for secondary info */ 
+  --bg-light: #F7FAFC;  /* Light background */ 
+  --transition: all 0.3s ease; 
+  --card-shadow: rgba(0, 0, 0, 0.1); /* Soft shadow */ 
+  --card-hover-shadow: 0 8px 30px rgba(90, 103, 216, 0.2); /* Enhanced hover shadow */ 
+} 
+ 
+body { 
+  background-color: var(--bg-light); 
+  color: var(--text-primary); 
+} 
+ 
+/* Dashboard Card Styles */ 
+.dashboard-link { 
+  text-decoration: none; 
+  color: inherit; 
+  display: block; 
+} 
+ 
+.dashboard-card { 
+  background: white; 
+  border-radius: 16px; 
+  padding: 1.5rem; /* Reduced padding for smaller cards */ 
+  height: 100%; 
+  transition: var(--transition); 
+  box-shadow: var(--card-shadow); 
+  display: flex; 
+  align-items: center; 
+  gap: 1.5rem; /* Reduced gap between icon and text */ 
+  position: relative; 
+  overflow: hidden; 
+} 
+ 
+.dashboard-card::before { 
+  content: ''; 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  background: linear-gradient(45deg, transparent, rgba(90, 103, 216, 0.05)); 
+  opacity: 0; 
+  transition: var(--transition); 
+} 
+ 
+.dashboard-card:hover { 
+  transform: translateY(-5px); 
+  box-shadow: var(--card-hover-shadow); 
+} 
+ 
+.dashboard-card:hover::before { 
+  opacity: 1; 
+} 
+ 
+/* Card Icon Styles */ 
+.card-icon { 
+  width: 75px; /* Reduced icon size */ 
+  height: 75px; /* Reduced icon size */ 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  border-radius: 16px; 
+  background: rgba(90, 103, 216, 0.1); 
+  padding: 1rem; /* Reduced padding inside the icon container */ 
+} 
+ 
+.card-icon img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: contain; 
+  transition: var(--transition); 
+} 
+ 
+.dashboard-card:hover .card-icon img { 
+  transform: scale(1.1); 
+} 
+ 
+/* Card Content Styles */ 
+.card-content { 
+  flex: 1; 
+} 
+ 
+.card-content h3 { 
+  margin: 0; 
+  font-size: 1.25rem; /* Reduced font size */ 
+  font-weight: 700; 
+  color: var(--text-primary); 
+} 
+ 
+.card-stats { 
+  margin-top: 0.5rem; 
+  display: flex; 
+  flex-direction: column; 
+} 
+ 
+.stats-number { 
+  font-size: 1.5rem; /* Reduced font size for stats number */ 
+  font-weight: 700; 
+  color: var(--primary-color); 
+} 
+ 
+.stats-label { 
+  font-size: 0.85rem; /* Reduced font size for stats label */ 
+  color: var(--text-secondary); 
+} 
+ 
+/* Responsive Adjustments */ 
+@media (max-width: 768px) { 
+  .dashboard-card { 
+    padding: 1.25rem; /* Slightly reduced padding on small screens */ 
+    gap: 1.25rem; /* Reduced gap for better alignment */ 
+  } 
+ 
+  .card-icon { 
+    width: 60px; /* Further reduced icon size on small screens */ 
+    height: 60px; /* Further reduced icon size */ 
+  } 
+ 
+  .stats-number { 
+    font-size: 1.25rem; /* Slightly smaller stats number font on mobile */ 
+  } 
+} 
+ 
+/* Animation for numbers */ 
+@keyframes countUp { 
+  from { 
+    transform: translateY(10px); 
+    opacity: 0; 
+  } 
+  to { 
+    transform: translateY(0); 
+    opacity: 1; 
+  } 
+} 
+.empty-div {  
+  padding-top: 8%; 
+ 
+} 
+ 
+.stats-number { 
+  animation: countUp 0.6s ease-out forwards; 
+}

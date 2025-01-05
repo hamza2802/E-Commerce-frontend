@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
     RouterModule, // Import RouterModule for RouterLink
     MatTableModule,
     MatCardModule,
-    MatButtonModule,
+    MatButtonModule,FormsModule
   ],
 })
 export class OrdersModule {}

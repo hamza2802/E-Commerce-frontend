@@ -12,7 +12,19 @@
 <body>
   <div class="container mt-4">
     <h3 class="mb-4">Customer List</h3>
-
+  
+    <!-- Search Bar -->
+    <div class="d-flex mb-3">
+      <input
+        type="text"
+        class="form-control me-2"
+        placeholder="Search by name, email, city, or state"
+        [(ngModel)]="searchTerm"
+        (input)="searchCustomers()"
+      />
+      <button class="btn btn-primary" (click)="searchCustomers()">Search</button>
+    </div>
+  
     <table class="table caption-top">
       <caption>List of Customers</caption>
       <thead class="table-dark">
@@ -25,61 +37,91 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let customer of customers; let i = index">
-          <th scope="row">{{ i + 1 }}</th>
+        <tr *ngFor="let customer of filteredCustomers; let i = index">
+          <th scope="row">{{ currentPage * 10 + i + 1 }}</th>
           <td>{{ customer.firstName }} {{ customer.lastName }}</td>
           <td>{{ customer.email }}</td>
           <td>{{ customer.city }}</td>
           <td>
-            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#customerModal"
-              (click)="viewDetails(customer)">View</button>
+            <button
+              class="btn btn-primary btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#customerModal"
+              (click)="viewDetails(customer)"
+            >
+              View
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
-  </div>
-
-  <!-- Modal for Viewing Customer Details -->
-  <div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="customerModalLabel">Customer Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <table class="table">
-            <tbody>
-              <tr>
-                <th scope="row">Name</th>
-                <td>{{ selectedCustomer?.firstName }} {{ selectedCustomer?.lastName }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Email</th>
-                <td>{{ selectedCustomer?.email }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Contact</th>
-                <td>{{ selectedCustomer?.contactNumber }}</td>
-              </tr>
-              <tr>
-                <th scope="row">City</th>
-                <td>{{ selectedCustomer?.city }}</td>
-              </tr>
-              <tr>
-                <th scope="row">State</th>
-                <td>{{ selectedCustomer?.state }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Address</th>
-                <td>{{ selectedCustomer?.address }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Pincode</th>
-                <td>{{ selectedCustomer?.pincode }}</td>
-              </tr>
-            </tbody>
-          </table>
+  
+    <!-- Pagination Controls -->
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <div>
+        Showing {{ currentPage * 10 + 1 }} to {{ currentPage * 10 + customers.length }} of total entries
+      </div>
+      <nav aria-label="Customer list pagination">
+        <ul class="pagination mb-0">
+          <li class="page-item" [class.disabled]="currentPage === 0">
+            <button class="page-link" (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 0">Previous</button>
+          </li>
+          
+          <ng-container *ngFor="let page of getPagesArray(); let i = index">
+            <li class="page-item" [class.active]="currentPage === i">
+              <button class="page-link" (click)="onPageChange(i)">{{ i + 1 }}</button>
+            </li>
+          </ng-container>
+  
+          <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
+            <button class="page-link" (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages - 1">Next</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  
+    <!-- Modal for Viewing Customer Details -->
+    <div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="customerModalLabel">Customer Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th scope="row">Name</th>
+                  <td>{{ selectedCustomer?.firstName }} {{ selectedCustomer?.lastName }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Email</th>
+                  <td>{{ selectedCustomer?.email }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Contact</th>
+                  <td>{{ selectedCustomer?.contactNumber }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">City</th>
+                  <td>{{ selectedCustomer?.city }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">State</th>
+                  <td>{{ selectedCustomer?.state }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Address</th>
+                  <td>{{ selectedCustomer?.address }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Pincode</th>
+                  <td>{{ selectedCustomer?.pincode }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

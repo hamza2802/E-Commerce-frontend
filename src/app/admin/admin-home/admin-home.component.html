@@ -1,118 +1,108 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
-</head>
-<body>
-
-    <div class="container py-4">
-        <!-- First Row -->
-        <div class="row g-4">
-            <div class="col-md-4">
-                <a routerLink="/admin-dashboard/view-customer" class="dashboard-link">
-                    <div class="dashboard-card">
-                        <div class="card-icon">
-                            <img src="assets/admin-images/users.png" alt="Users">
-                        </div>
-                        <div class="card-content">
-                            <h3>Users</h3>
-                            <div class="card-stats">
-                                <span class="stats-number">150</span>
-                                <span class="stats-label">Total Users</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-    
-            <div class="col-md-4">
-                <a routerLink="/admin/category" class="dashboard-link">
-                    <div class="dashboard-card">
-                        <div class="card-icon">
-                            <img src="assets/admin-images/category.png" alt="Category">
-                        </div>
-                        <div class="card-content">
-                            <h3>Category</h3>
-                            <div class="card-stats">
-                                <span class="stats-number">12</span>
-                                <span class="stats-label">Total Categories</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-    
-            <div class="col-md-4">
-                <a routerLink="/admin-dashboard/admin-products" class="dashboard-link">
-                    <div class="dashboard-card">
-                        <div class="card-icon">
-                            <img src="assets/admin-images/products.png" alt="Products">
-                        </div>
-                        <div class="card-content">
-                            <h3>Products</h3>
-                            <div class="card-stats">
-                                <span class="stats-number">100</span>
-                                <span class="stats-label">Total Products</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    
-        <!-- Second Row -->
-        <div class="row g-4 mt-2">
-            <div class="col-md-4">
-                <a routerLink="/admin-dashboard/admin-orders" class="dashboard-link">
-                    <div class="dashboard-card">
-                        <div class="card-icon">
-                            <img src="assets/admin-images/orders.png" alt="Orders">
-                        </div>
-                        <div class="card-content">
-                            <h3>Orders</h3>
-                            <div class="card-stats">
-                                <span class="stats-label">Manage Orders</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-    
-            <div class="col-md-4">
-                <a routerLink="/admin-dashboard/admin-deliveryAgent" class="dashboard-link">
-                    <div class="dashboard-card">
-                        <div class="card-icon">
-                            <img src="assets/admin-images/delivery-agents.png" alt="Delivery Agents">
-                        </div>
-                        <div class="card-content">
-                            <h3>Delivery Agents</h3>
-                            <div class="card-stats">
-                                <span class="stats-label">Manage Agents</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-    
-            <div class="col-md-4">
-                <a routerLink="/admin-dashboard/admin-products" class="dashboard-link">
-                    <div class="dashboard-card">
-                        <div class="card-icon">
-                            <img src="assets/admin-images/addproducts.png" alt="Add Products">
-                        </div>
-                        <div class="card-content">
-                            <h3>Add Products</h3>
-                            <div class="card-stats">
-                                <span class="stats-label">Create New</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-
-</body>
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Document</title> 
+    <!-- Add Bootstrap CSS Link --> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> 
+</head> 
+<body> 
+ 
+    <div class="container py-4"> 
+        <!-- First Row --> 
+        <div class="row g-4 justify-content-center"> 
+            <div class="col-md-4"> 
+                <a routerLink="/admin-dashboard/view-customer" class="dashboard-link"> 
+                    <div class="dashboard-card"> 
+                        <div class="card-icon"> 
+                            <img src="assets/admin-images/users.png" alt="Users"> 
+                        </div> 
+                        <div class="card-content"> 
+                            <h3>Customers</h3> 
+                            <div class="card-stats"> 
+                                <span class="stats-number">{{totalCustomers}}</span> 
+                                <span class="stats-label">Total Customers</span> 
+                            </div> 
+                        </div> 
+                    </div> 
+                </a> 
+            </div> 
+     
+             
+            <div class="col-md-4"> 
+                <a routerLink="/admin-dashboard/admin-products" class="dashboard-link"> 
+                    <div class="dashboard-card"> 
+                        <div class="card-icon"> 
+                            <img src="assets/admin-images/products.png" alt="Products"> 
+                        </div> 
+                        <div class="card-content"> 
+                            <h3>Products</h3> 
+                            <div class="card-stats"> 
+                                <span class="stats-number">100</span> 
+                                <span class="stats-label">Total Products</span> 
+                            </div> 
+                        </div> 
+                    </div> 
+                </a> 
+            </div> 
+        </div> 
+     
+        <!-- Second Row --> 
+        <div class="row g-4 mt-2 justify-content-center"> 
+            <div class="col-md-4"> 
+                <a routerLink="/admin-dashboard/admin-orders" class="dashboard-link"> 
+                    <div class="dashboard-card"> 
+                        <div class="card-icon"> 
+                            <img src="assets/admin-images/orders.png" alt="Orders"> 
+                        </div> 
+                        <div class="card-content"> 
+                            <h3>Orders</h3> 
+                            <div class="card-stats"> 
+                                <span class="stats-number">100</span> 
+                                <span class="stats-label">Total Orders</span> 
+                            </div> 
+                        </div> 
+                    </div> 
+                </a> 
+            </div> 
+     
+            <div class="col-md-4"> 
+                <a routerLink="/admin-dashboard/admin-deliveryAgent" class="dashboard-link"> 
+                    <div class="dashboard-card"> 
+                        <div class="card-icon"> 
+                            <img src="assets/admin-images/delivery-agents.png" alt="Delivery Agents"> 
+                        </div> 
+                        <div class="card-content"> 
+                            <h3>Delivery Agents</h3> 
+                            <div class="card-stats"> 
+                                <span class="stats-number">100</span> 
+                                <span class="stats-label">Total Agents</span> 
+                            </div> 
+                        </div> 
+                    </div> 
+                </a> 
+            </div> 
+     
+            <div class="col-md-4"> 
+                <a routerLink="/admin-dashboard/admin-products" class="dashboard-link"> 
+                    <div class="dashboard-card"> 
+                        <div class="card-icon"> 
+                            <img src="assets/admin-images/addproducts.png" alt="Add Products"> 
+                        </div> 
+                        <div class="card-content"> 
+                            <h3>Add Products</h3> 
+                            <div class="card-stats"> 
+                                
+                                <span class="stats-label">Upload .csv file</span>  
+                                <span class="stats-label">for Batch Processing</span> 
+                                <div class = "empty-div">  </div> 
+                            </div> 
+                        </div> 
+                    </div> 
+                </a> 
+            </div> 
+        </div> 
+    </div> 
+ 
+</body> 
 </html>

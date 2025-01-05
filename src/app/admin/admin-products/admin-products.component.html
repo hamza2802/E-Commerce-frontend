@@ -9,45 +9,105 @@
 </head>
 
 <body>
-    <div class="container mt-4">
-        <!-- Add Product Button -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h3>Product List</h3>
-          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Product</button>
-        </div>
-    
-        <table class="table caption-top">
-          <caption>List of Products</caption>
-          <thead class="table-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Product Name</th>
-              <th scope="col">Category</th>
-              <th scope="col">Stock</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let product of products; let i = index">
-              <th scope="row">{{ i + 1 }}</th>
-              <td>{{ product?.productName }}</td>
-
-              <td>{{ product?.category }}</td>
-              <td>{{ product?.stock }}</td>
-              <td>
-                <div class="btn-group">
-                  <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#productModal" (click)="viewProduct(product)">View</button>
-                  <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editProductModal" (click)="editProduct(product)">Edit</button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+  <!-- Replace the existing table section in admin-products.component.html with this -->
+  <div class="container mt-4">
+    <!-- Add Product Button and Search -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3>Product List</h3>
+      <div class="d-flex">
+        <input
+          type="text"
+          class="form-control me-2"
+          placeholder="Search by name or category"
+          [(ngModel)]="searchQuery"
+          (input)="filterProducts()"
+          style="width: 300px;"
+        />
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Product</button>
       </div>
-    
-      <!-- Modal for Viewing Product Details -->
-     <!-- Modal for Viewing Product Details -->
-<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    </div>
+  
+    <!-- Product Table -->
+    <table class="table caption-top">
+      <caption>List of Products</caption>
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Category</th>
+          <th scope="col">Stock</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of paginatedProducts; let i = index">
+          <th scope="row">{{ (currentPage - 1) * itemsPerPage + i + 1 }}</th>
+          <td>{{ product?.productName }}</td>
+          <td>{{ product?.category }}</td>
+          <td>{{ product?.stock }}</td>
+          <td>
+            <div class="btn-group">
+              <button
+                class="btn btn-primary btn-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#productModal"
+                (click)="viewProduct(product)"
+              >
+                View
+              </button>
+              <button
+                class="btn btn-warning btn-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#editProductModal"
+                (click)="editProduct(product)"
+              >
+                Edit
+              </button>
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="deleteProduct(product.productId)"
+              >
+                Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  <!-- Pagination Controls -->
+  <nav aria-label="Product pagination" class="d-flex justify-content-center mt-4">
+      <ul class="pagination">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+              <button class="page-link" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+          </li>
+          <li class="page-item" *ngFor="let page of pages" [class.active]="page === currentPage">
+              <button class="page-link" (click)="changePage(page)">{{ page }}</button>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === pages.length">
+              <button class="page-link" (click)="nextPage()" [disabled]="currentPage === pages.length">Next</button>
+          </li>
+      </ul>
+  </nav>
+
+  <!-- Items per page selector -->
+  <div class="d-flex justify-content-center mt-3">
+      <div class="form-group">
+          <label for="itemsPerPage">Items per page:</label>
+          <select id="itemsPerPage" class="form-select ms-2" style="width: auto; display: inline-block;"
+              [(ngModel)]="itemsPerPage" (change)="currentPage = 1; calculatePages()">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+          </select>
+      </div>
+  </div>
+</div>
+
+  <!-- Modal for Viewing Product Details -->
+  <!-- Modal for Viewing Product Details -->
+  <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -58,20 +118,23 @@
           <!-- Carousel for Images -->
           <div id="productImagesCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-              <div class="carousel-item" *ngFor="let imageUrl of selectedProduct?.imageUrls; let first = first" [class.active]="first">
+              <div class="carousel-item" *ngFor="let imageUrl of selectedProduct?.imageUrls; let first = first"
+                [class.active]="first">
                 <img [src]="imageUrl" class="d-block w-100" alt="Product Image">
               </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#productImagesCarousel" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#productImagesCarousel"
+              data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#productImagesCarousel" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#productImagesCarousel"
+              data-bs-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
             </button>
           </div>
-  
+
           <!-- Product Details -->
           <table class="table mt-4" *ngIf="selectedProduct">
             <tbody>
@@ -105,7 +168,7 @@
       </div>
     </div>
   </div>
-  
+
 
   <!-- Modal for Adding Product -->
   <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
@@ -119,45 +182,44 @@
           <form (ngSubmit)="addProduct()">
             <div class="mb-3">
               <label for="productName" class="form-label">Product Name</label>
-              <input id="productName" type="text" [(ngModel)]="newProduct.productName" name="productName" class="form-control" required />
+              <input id="productName" type="text" [(ngModel)]="newProduct.productName" name="productName"
+                class="form-control" required />
             </div>
             <div class="mb-3">
               <label for="category" class="form-label">Category</label>
-              <input id="category" type="text" [(ngModel)]="newProduct.category" name="category" class="form-control" required />
+              <input id="category" type="text" [(ngModel)]="newProduct.category" name="category" class="form-control"
+                required />
             </div>
             <div class="mb-3">
               <label for="stock" class="form-label">Stock</label>
-              <input id="stock" type="number" [(ngModel)]="newProduct.stock" name="stock" class="form-control" required />
+              <input id="stock" type="number" [(ngModel)]="newProduct.stock" name="stock" class="form-control"
+                required />
             </div>
             <div class="mb-3">
               <label for="productDescription" class="form-label">Description</label>
-              <textarea id="productDescription" [(ngModel)]="newProduct.productDescription" name="productDescription" class="form-control" rows="3" required></textarea>
+              <textarea id="productDescription" [(ngModel)]="newProduct.productDescription" name="productDescription"
+                class="form-control" rows="3" required></textarea>
             </div>
             <div class="mb-3">
               <label for="productDiscountedPrice" class="form-label">Discounted Price</label>
-              <input id="productDiscountedPrice" type="number" [(ngModel)]="newProduct.productDiscountedPrice" name="productDiscountedPrice" class="form-control" required />
+              <input id="productDiscountedPrice" type="number" [(ngModel)]="newProduct.productDiscountedPrice"
+                name="productDiscountedPrice" class="form-control" required />
             </div>
             <div class="mb-3">
               <label for="productActualPrice" class="form-label">Actual Price</label>
-              <input id="productActualPrice" type="number" [(ngModel)]="newProduct.productActualPrice" name="productActualPrice" class="form-control" required />
+              <input id="productActualPrice" type="number" [(ngModel)]="newProduct.productActualPrice"
+                name="productActualPrice" class="form-control" required />
             </div>
             <div class="mb-3">
-                <label for="image" class="form-label">Product Images</label>
-                <input
-                  id="image"
-                  type="file"
-                  (change)="onFileSelected($event)"
-                  class="form-control"
-                  multiple
-                  required
-                />
+              <label for="image" class="form-label">Product Images</label>
+              <input id="image" type="file" (change)="onFileSelected($event)" class="form-control" multiple required />
+            </div>
+            <div class="mt-3">
+              <div *ngFor="let file of imageUrls" class="mb-2">
+                <span>{{ file.name }}</span>
               </div>
-              <div class="mt-3">
-                <div *ngFor="let file of imageUrls" class="mb-2">
-                  <span>{{ file.name }}</span>
-                </div>
-              </div>
-              
+            </div>
+
             <button type="submit" class="btn btn-primary">Add Product</button>
           </form>
         </div>
@@ -167,7 +229,7 @@
 
   <!-- Success Toast Notification -->
 
- <div class="toast-container">
+  <div class="toast-container">
     <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
         <strong class="me-auto">Success</strong>
@@ -180,7 +242,8 @@
   </div>
 
   <!-- Modal for Editing Product -->
-<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+  <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -191,27 +254,33 @@
           <form (ngSubmit)="saveUpdatedProduct()">
             <div class="mb-3">
               <label for="productName" class="form-label">Product Name</label>
-              <input id="productName" type="text" [(ngModel)]="updatedProduct.productName" name="productName" class="form-control" required />
+              <input id="productName" type="text" [(ngModel)]="updatedProduct.productName" name="productName"
+                class="form-control" required />
             </div>
             <div class="mb-3">
               <label for="category" class="form-label">Category</label>
-              <input id="category" type="text" [(ngModel)]="updatedProduct.category" name="category" class="form-control" required />
+              <input id="category" type="text" [(ngModel)]="updatedProduct.category" name="category"
+                class="form-control" required />
             </div>
             <div class="mb-3">
               <label for="stock" class="form-label">Stock</label>
-              <input id="stock" type="number" [(ngModel)]="updatedProduct.stock" name="stock" class="form-control" required />
+              <input id="stock" type="number" [(ngModel)]="updatedProduct.stock" name="stock" class="form-control"
+                required />
             </div>
             <div class="mb-3">
               <label for="productDescription" class="form-label">Description</label>
-              <textarea id="productDescription" [(ngModel)]="updatedProduct.productDescription" name="productDescription" class="form-control" rows="3" required></textarea>
+              <textarea id="productDescription" [(ngModel)]="updatedProduct.productDescription"
+                name="productDescription" class="form-control" rows="3" required></textarea>
             </div>
             <div class="mb-3">
               <label for="productDiscountedPrice" class="form-label">Discounted Price</label>
-              <input id="productDiscountedPrice" type="number" [(ngModel)]="updatedProduct.productDiscountedPrice" name="productDiscountedPrice" class="form-control" required />
+              <input id="productDiscountedPrice" type="number" [(ngModel)]="updatedProduct.productDiscountedPrice"
+                name="productDiscountedPrice" class="form-control" required />
             </div>
             <div class="mb-3">
               <label for="productActualPrice" class="form-label">Actual Price</label>
-              <input id="productActualPrice" type="number" [(ngModel)]="updatedProduct.productActualPrice" name="productActualPrice" class="form-control" required />
+              <input id="productActualPrice" type="number" [(ngModel)]="updatedProduct.productActualPrice"
+                name="productActualPrice" class="form-control" required />
             </div>
             <div class="mt-3">
               <button type="submit" class="btn btn-primary">Save Changes</button>
@@ -221,7 +290,7 @@
       </div>
     </div>
   </div>
-  
+
 
 
 
