@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -12,10 +12,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class LoginComponent {
   constructor(private loginService: LoginService, private router: Router) { }
 
+  passwordFieldType: string = 'password';
+
   loginForm = new FormGroup({
-    email: new FormControl(),
-    password: new FormControl(),
-    userCaptcha: new FormControl() // Ensure this form control is properly bound
+    email: new FormControl('', [Validators.required, Validators.email]), 
+    password: new FormControl('', [Validators.required]), 
+    userCaptcha: new FormControl('', [Validators.required]) 
   });
 
   myToken: any = "";
@@ -32,7 +34,16 @@ export class LoginComponent {
     return captcha;
   }
 
+  togglePasswordVisibility() {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+  }
+
   onLogin() {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched(); // Mark all fields as touched to trigger validation messages
+      return;
+    }
+
     if (this.loginForm.value.userCaptcha !== this.captcha) {
       this.captchaFailed = true;
       this.loginForm.get('userCaptcha')?.reset(); // Clear the captcha input
@@ -42,16 +53,12 @@ export class LoginComponent {
       this.loginService.signIn(this.loginForm.value).subscribe({
         next: (response) => {
           this.myToken = response.accessToken;
-          console.log(this.myToken);
           localStorage.setItem('token', this.myToken);
 
           const payload = JSON.parse(atob(this.myToken.split('.')[1]));
-          console.log(payload);
           const userRole = payload['role'];
-          console.log(userRole[0].authority);
 
           const userName = payload['sub'];
-          console.log(userName);
           if (userRole[0].authority === 'ROLE_ADMIN') {
             this.router.navigateByUrl('/admin-dashboard/admin-home');
           } else if (userRole[0].authority === 'ROLE_CUSTOMER') {

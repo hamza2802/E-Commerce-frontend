@@ -1,43 +1,77 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <title>Login</title>
 </head>
 <body>
-  <div class="card-container">
-    <div class="login-container">
-        <div class="login-header">
-            <h1>Welcome Back</h1>
-            <p>Please login to continue</p>
+    <div class="container">
+        <div class="left-section">
+            <h2>WELCOME BACK TO</h2>
+            <img src="/assets/logo.png" alt="Gadget-Cart Logo" class="logo">
         </div>
-        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-            <div class="input-group">
-                <input type="text" formControlName="email" required />
-                <label>Email Address</label>
-            </div>
-            <div class="input-group">
-                <input type="password" formControlName="password" required />
-                <label>Password</label>
-            </div>
-  
-            <!-- CAPTCHA Section -->
-            <div class="captcha-container">
-                <p>{{ captcha }}</p>
-                <input type="text" formControlName="userCaptcha" placeholder="Enter CAPTCHA" required />
-            </div>
-  
-            <button type="submit" class="login-button">Login</button>
-  
-            <div *ngIf="captchaFailed" class="error-message">
-                You have entered the wrong captcha. Please try again.
-            </div>
-  
-            <div class="signup-link">
-                Don't have an account? <a routerLink="register">Sign Up</a>
-            </div>
-        </form>
+        <div class="right-section">
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
+                <div class="form-header">
+                    <h1>Sign in to your account</h1>
+                    <p>Shop your favorite electronics brands and get the best deals!</p>
+                </div>
+                
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" id="email" formControlName="email" placeholder="Enter your email" required>
+                    <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="error-message">
+                        <small *ngIf="loginForm.get('email')?.hasError('required')">Email is required.</small>
+                        <small *ngIf="loginForm.get('email')?.hasError('email')">Please enter a valid email address.</small>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="password" formControlName="password" placeholder="Enter your password" required [type]="passwordFieldType">
+                        <span class="password-toggle" (click)="togglePasswordVisibility()">
+                            <i class="fas" [ngClass]="passwordFieldType === 'password' ? 'fa-eye' : 'fa-eye-slash'"></i> <!-- Eye icon -->
+                        </span>
+                    </div>
+                    <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="error-message">
+                        <small *ngIf="loginForm.get('password')?.hasError('required')">Password is required.</small>
+                    </div>
+                </div>
+                
+                <!-- CAPTCHA -->
+                <div class="captcha-container">
+                    <p>{{ captcha }}</p>
+                    <input type="text" formControlName="userCaptcha" placeholder="Enter CAPTCHA" required />
+                    <div *ngIf="loginForm.get('userCaptcha')?.touched && loginForm.get('userCaptcha')?.invalid" class="error-message">
+                        <small *ngIf="loginForm.get('userCaptcha')?.hasError('required')">Captcha is required.</small>
+                    </div>
+                </div>
+
+                <!-- CAPTCHA Error Popup -->
+                <div *ngIf="captchaFailed" class="popup-overlay">
+                    <div class="popup">
+                        <h2>Captcha Failed</h2>
+                        <p>You have entered the wrong captcha. Please try again.</p>
+                        <button (click)="captchaFailed = false">Close</button>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn" [disabled]="loginForm.invalid">Sign In</button>
+
+                <!-- Sign Up Link -->
+                <div class="signup-link">
+                    Don't have an account? <a routerLink="register">Sign Up</a>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
 </body>
 </html>
