@@ -13,8 +13,8 @@ export class ViewCustomerComponent implements OnInit {
   totalPages = 0;
   selectedCustomer: CustomerDetails | null = null;
   searchTerm: string = '';
-
-  totalCustomers=0;
+  totalCustomers = 0;
+  itemsPerPage = 10; // Default value for items per page
 
   constructor(private customerService: ViewCustomerservicesService) {}
 
@@ -23,12 +23,12 @@ export class ViewCustomerComponent implements OnInit {
   }
 
   loadCustomers(page: number): void {
-    this.customerService.getCustomers(page, 10).subscribe((data) => {
+    this.customerService.getCustomers(page, this.itemsPerPage).subscribe((data) => {
       this.customers = data.content;
       this.filteredCustomers = this.customers; // Initially, show all customers
       this.currentPage = data.number;
       this.totalPages = data.totalPages;
-      this.totalCustomers = data.totalElements; // Assuming totalElements is the total count 
+      this.totalCustomers = data.totalElements; // Assuming totalElements is the total count
       this.customerService.setTotalCustomers(this.totalCustomers);
     });
   }
@@ -49,12 +49,17 @@ export class ViewCustomerComponent implements OnInit {
 
   searchCustomers(): void {
     const searchTermLower = this.searchTerm.toLowerCase();
-
     this.filteredCustomers = this.customers.filter((customer) =>
       Object.values(customer)
         .join(' ')
         .toLowerCase()
         .includes(searchTermLower)
     );
+  }
+
+  // Handle changes in the items per page dropdown
+  onItemsPerPageChange(): void {
+    this.currentPage = 0; // Reset to the first page when the number of items per page changes
+    this.loadCustomers(this.currentPage);
   }
 }
