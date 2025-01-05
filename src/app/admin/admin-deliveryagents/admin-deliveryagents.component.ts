@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DeliveryAgentService } from 'src/app/services/delivery-agent/deliveryAgentService';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-deliveryagents',
@@ -10,37 +11,74 @@ export class AdminDeliveryagentsComponent implements OnInit {
   deliveryAgents: any[] = [];
   filteredAgents: any[] = [];
   selectedAgent: any | null = null;
-  
+
   // Search property
   searchTerm: string = '';
-  
+
   // Pagination properties
   currentPage: number = 1;
-  pageSize: number = 5;
+  itemsPerPage: number = 5;  
   totalItems: number = 0;
-  
-  // Form fields
-  firstName: string = '';
-  lastName: string = '';
-  email: string = '';
-  password: string = '';
-  zone: string = '';
-  contactNumber: string = '';
-  vehicleType: string = '';
-  vehicleNumber: string = '';
+  totalPages: number = 0;
+  pageNumbers: number[] = [];
 
-  constructor(private deliveryAgentService: DeliveryAgentService) {}
+  // Reactive form for adding/editing agents
+  agentForm: FormGroup = this.fb.group({
+    firstName: ['', [Validators.required]],
+    lastName: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    deliveryZone: ['', [Validators.required]],  // Changed from zone to deliveryZone
+    contactNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+    vehicleType: ['', [Validators.required]],
+    vehicleNumber: ['', [Validators.required, Validators.pattern('^[A-Z0-9 ]+$')]]
+  });
+
+  // Add getters for form controls to simplify template code
+  get f() {
+    return this.agentForm.controls;
+  }
+
+  // Function to get error message for each field
+  getErrorMessage(fieldName: string): string {
+    const control = this.agentForm.get(fieldName);
+    if (control && control.errors && control.touched) {
+      if (control.errors['required']) {
+        return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
+      }
+      if (control.errors['email']) {
+        return 'Please enter a valid email address';
+      }
+
+      if (control.errors['pattern']) {
+        if (fieldName === 'contactNumber') {
+          return 'Please enter a valid 10-digit contact number';
+        }
+        if (fieldName === 'vehicleNumber') {
+          return 'Please enter a valid vehicle number (uppercase letters and numbers only)';
+        }
+      }
+    }
+    return '';
+  }
+
+  constructor(
+    private deliveryAgentService: DeliveryAgentService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.fetchDeliveryAgents();
   }
 
+  // Fetch the delivery agents
   fetchDeliveryAgents(): void {
     this.deliveryAgentService.getDeliveryAgents(0, 100).subscribe({
       next: (response) => {
         this.deliveryAgents = response.content;
         this.filteredAgents = [...this.deliveryAgents]; // Initialize filtered agents with all agents
         this.totalItems = this.filteredAgents.length;
+        this.calculatePages();
       },
       error: (error) => {
         console.error('Error fetching delivery agents:', error);
@@ -48,137 +86,155 @@ export class AdminDeliveryagentsComponent implements OnInit {
     });
   }
 
-  // Updated search functionality with safe checks
+  // Search functionality with safe checks
   filterAgents(): void {
     if (!this.searchTerm || this.searchTerm.trim() === '') {
       this.filteredAgents = [...this.deliveryAgents];
     } else {
       const searchStr = this.searchTerm.toLowerCase().trim();
-      
       this.filteredAgents = this.deliveryAgents.filter(agent => {
-        // Safely handle null/undefined values
         const fullName = `${agent.firstname || ''} ${agent.lastname || ''}`.toLowerCase();
         const zone = (agent.deliveryZone || '').toLowerCase();
         const contact = (agent.contactNumber || '').toString().toLowerCase();
-        
-        return fullName.includes(searchStr) ||
-               zone.includes(searchStr) ||
-               contact.includes(searchStr);
+
+        return fullName.includes(searchStr) || zone.includes(searchStr) || contact.includes(searchStr);
       });
     }
-    
     this.totalItems = this.filteredAgents.length;
-    this.currentPage = 1; // Reset to first page when searching
+    this.currentPage = 1; // Reset to the first page when searching
+    this.calculatePages();
+  }
+
+  // Calculate total pages based on filtered agents
+  calculatePages(): void {
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+    this.pageNumbers = Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
   // Get current page items from filtered results
   get paginatedAgents(): any[] {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    return this.filteredAgents.slice(startIndex, endIndex);
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredAgents.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  // Get total pages based on filtered results
-  get totalPages(): number {
-    return Math.ceil(this.filteredAgents.length / this.pageSize);
+  // Change to the selected page
+  changePage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
   }
 
-  // Get page numbers array for pagination
-  get pageNumbers(): number[] {
-    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  // Go to the previous page
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  // Go to the next page
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  // Reset the form for adding/updating agents
+  resetForm(): void {
+    this.agentForm.reset();
+    this.selectedAgent = null;
+  }
+
+  // Populate the form with the agent data for editing
+  populateModal(agent: any): void {
+    this.selectedAgent = agent;
+    this.agentForm.patchValue({
+      firstName: agent.firstname,
+      lastName: agent.lastname,
+      email: agent.email,
+      password: '',  // Keep password empty for edit
+      deliveryZone: agent.deliveryZone,  // Match the field name with the form control
+      contactNumber: agent.contactNumber,
+      vehicleType: agent.vehicleType,
+      vehicleNumber: agent.vehicleNumber
+    });
   }
 
   addDeliveryAgent(): void {
+    if (this.agentForm.invalid) {
+      // Mark all fields as touched to trigger validation messages
+      Object.keys(this.agentForm.controls).forEach(key => {
+        const control = this.agentForm.get(key);
+        control?.markAsTouched();
+      });
+      return;
+    }
+    
+    const formData = this.agentForm.value;
     const newAgent = {
-      firstName: this.firstName,
-      lastName: this.lastName,
-      password: this.password,
-      email: this.email,
-      contactNumber: parseInt(this.contactNumber),
-      deliveryZone: this.zone,
-      vehicleType: this.vehicleType,
-      vehicleNumber: this.vehicleNumber,
+      firstname: formData.firstName,
+      lastname: formData.lastName,
+      email: formData.email,
+      password: formData.password,
+      deliveryZone: formData.deliveryZone,
+      contactNumber: formData.contactNumber,
+      vehicleType: formData.vehicleType,
+      vehicleNumber: formData.vehicleNumber
     };
-
+  
     this.deliveryAgentService.addDeliveryAgent(newAgent).subscribe({
       next: (response) => {
         this.deliveryAgents.push(response);
-        this.filterAgents(); // Reapply search filter after adding
-        this.totalItems = this.filteredAgents.length;
+        this.filterAgents();
         this.resetForm();
         alert('Agent added successfully!');
       },
       error: (error) => {
         console.error('Error adding delivery agent:', error);
+        if (error.error?.message) {
+          alert(error.error.message);
+        } else {
+          alert('Failed to add delivery agent. Please try again.');
+        }
       }
     });
   }
 
+  // Handle updating an existing delivery agent
   updateDeliveryAgent(): void {
-    if (this.selectedAgent) {
-      const updatedAgent = {
-        id: this.selectedAgent.id,
-        firstname: this.firstName,
-        lastname: this.lastName,
-        password: this.password,
-        email: this.email,
-        contactNumber: parseInt(this.contactNumber),
-        deliveryZone: this.zone,
-        vehicleType: this.vehicleType,
-        vehicleNumber: this.vehicleNumber,
-      };
+    if (this.agentForm.invalid || !this.selectedAgent) return;
 
-      this.deliveryAgentService.updateDeliveryAgent(updatedAgent).subscribe({
-        next: (response) => {
-          const index = this.deliveryAgents.findIndex(agent => agent.id === updatedAgent.id);
-          if (index !== -1) {
-            this.deliveryAgents[index] = response;
-            this.filterAgents(); // Reapply search filter after updating
-          }
-          this.resetForm();
-          alert('Agent updated successfully!');
-        },
-        error: (error) => {
-          console.error('Error updating delivery agent:', error);
+    const updatedAgent = { 
+      ...this.selectedAgent, 
+      ...this.agentForm.value 
+    };
+
+    this.deliveryAgentService.updateDeliveryAgent(updatedAgent).subscribe({
+      next: (response) => {
+        const index = this.deliveryAgents.findIndex(agent => agent.id === updatedAgent.id);
+        if (index !== -1) {
+          this.deliveryAgents[index] = response;
+          this.filterAgents(); // Reapply search filter after updating
         }
-      });
-    }
+        this.resetForm();
+        alert('Agent updated successfully!');
+      },
+      error: (error) => {
+        console.error('Error updating delivery agent:', error);
+      }
+    });
   }
 
+  // Handle deleting a delivery agent
   deleteDeliveryAgent(agentId: number): void {
-    this.deliveryAgents = this.deliveryAgents.filter(agent => agent.id !== agentId);
-    this.filterAgents(); // Reapply search filter after deleting
-    
     this.deliveryAgentService.deleteDeliveryAgent(agentId).subscribe({
       next: () => {
+        this.deliveryAgents = this.deliveryAgents.filter(agent => agent.id !== agentId);
+        this.filterAgents(); // Reapply search filter after deleting
         alert('Agent deleted successfully!');
       },
       error: (error) => {
         console.error('Error deleting delivery agent:', error);
-        this.fetchDeliveryAgents();
       }
     });
-  }
-
-  resetForm(): void {
-    this.firstName = '';
-    this.lastName = '';
-    this.email = '';
-    this.password = '';
-    this.zone = '';
-    this.contactNumber = '';
-    this.vehicleType = '';
-    this.vehicleNumber = '';
-  }
-
-  populateModal(agent: any): void {
-    this.selectedAgent = agent;
-    this.firstName = agent.firstname;
-    this.lastName = agent.lastname;
-    this.email = agent.email;
-    this.zone = agent.deliveryZone;
-    this.contactNumber = agent.contactNumber;
-    this.vehicleType = agent.vehicleType;
-    this.vehicleNumber = agent.vehicleNumber;
   }
 }

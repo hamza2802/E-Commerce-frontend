@@ -10,40 +10,20 @@
 
 <body>
   <div class="container mt-4">
-    <!-- Header with search -->
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <h3>Delivery Agents</h3>
-      </div>
-      <div class="col-md-6">
-        <div class="input-group">
-          <input 
-            type="text" 
-            class="form-control" 
-            placeholder="Search by name, zone, or contact number..." 
-            [(ngModel)]="searchTerm"
-            (input)="filterAgents()"
-          >
-          <button 
-            class="btn btn-outline-secondary" 
-            type="button"
-            *ngIf="searchTerm"
-            (click)="searchTerm=''; filterAgents()">
-            Clear
-          </button>
-        </div>
-      </div>
-    </div>
-  
-    <!-- Add button -->
-    <div class="row mb-3">
-      <div class="col-12 text-end">
+    <!-- Add Agent Button and Search -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3 style="color: rgb(0, 0, 0);">All Delivery Agents</h3>
+      <div class="d-flex">
+        <input type="text" class="form-control me-2" placeholder="Search by name, zone, or contact number..."
+          [(ngModel)]="searchTerm" (input)="filterAgents()" style="width: 300px;" />
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addAgentModal">
           Add Delivery Agent
         </button>
       </div>
     </div>
-  
+
+
+
     <!-- Search results count -->
     <div class="row mb-3" *ngIf="searchTerm">
       <div class="col">
@@ -52,12 +32,12 @@
         </span>
       </div>
     </div>
-  
+
     <!-- Table -->
     <table class="table">
-      <thead class="table-dark">
+      <thead>
         <tr>
-          <th scope="col">#</th>
+          <th scope="col">Sr no.</th>
           <th scope="col">Agent Name</th>
           <th scope="col">Zone</th>
           <th scope="col">Contact Number</th>
@@ -66,17 +46,17 @@
       </thead>
       <tbody>
         <tr *ngFor="let agent of paginatedAgents; let i = index">
-          <th scope="row">{{ (currentPage - 1) * pageSize + i + 1 }}</th>
+          <th scope="row">{{ (currentPage - 1) * itemsPerPage + i + 1 }}</th>
           <td>{{ agent.firstname }} {{ agent.lastname }}</td>
           <td>{{ agent.deliveryZone }}</td>
           <td>{{ agent.contactNumber }}</td>
           <td>
             <div class="btn-group">
-              <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#agentModal"
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agentModal"
                 (click)="populateModal(agent)">View</button>
-              <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#editAgentModal"
+              <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editAgentModal"
                 (click)="populateModal(agent)">Edit</button>
-              <button class="btn btn-danger btn-sm" (click)="deleteDeliveryAgent(agent.id)">Delete</button>
+              <button class="btn btn-danger" (click)="deleteDeliveryAgent(agent.id)">Delete</button>
             </div>
           </td>
         </tr>
@@ -92,139 +72,224 @@
         </tr>
       </tbody>
     </table>
-  
+
     <!-- Pagination -->
-    <div class="row mt-3" *ngIf="filteredAgents.length > pageSize">
-      <div class="col-md-6 d-flex align-items-center justify-content-start">
-        <div class="form-group mb-0">
-          <select class="form-control" [(ngModel)]="pageSize" (change)="currentPage = 1">
-            <option [value]="5">5 per page</option>
-            <option [value]="10">10 per page</option>
-            <option [value]="25">25 per page</option>
-            <option [value]="50">50 per page</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <nav aria-label="Delivery agents pagination">
-          <ul class="pagination justify-content-end mb-0">
-            <li class="page-item" [class.disabled]="currentPage === 1">
-              <a class="page-link" href="javascript:void(0)" (click)="currentPage = currentPage - 1">Previous</a>
-            </li>
-            <li class="page-item" *ngFor="let page of pageNumbers" [class.active]="page === currentPage">
-              <a class="page-link" href="javascript:void(0)" (click)="currentPage = page">{{ page }}</a>
-            </li>
-            <li class="page-item" [class.disabled]="currentPage === totalPages">
-              <a class="page-link" href="javascript:void(0)" (click)="currentPage = currentPage + 1">Next</a>
-            </li>
-          </ul>
-        </nav>
+    <nav aria-label="Product pagination">
+      <ul class="pagination justify-content-center">
+        <!-- Previous Page Button -->
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <button class="page-link" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+        </li>
+    
+        <!-- Page Numbers -->
+        <li class="page-item" *ngFor="let page of pageNumbers" [class.active]="page === currentPage">
+          <button class="page-link" (click)="changePage(page)">{{ page }}</button>
+        </li>
+    
+        <!-- Next Page Button -->
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <button class="page-link" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+        </li>
+      </ul>
+    </nav>
+    
+    <!-- Items per page selector -->
+    <div class="d-flex justify-content-center mt-3">
+      <div class="form-group">
+        <label for="itemsPerPage">Items per page:</label>
+        <select 
+          id="itemsPerPage" 
+          class="form-select ms-2" 
+          style="width: auto; display: inline-block;"
+          [(ngModel)]="itemsPerPage" 
+          (change)="currentPage = 1; calculatePages()">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
       </div>
     </div>
+    
   </div>
-  
+
+
   <!-- Keep existing modals unchanged -->
 
-  <!-- Modal for Viewing Agent Details -->
-  <div class="modal fade" id="agentModal" tabindex="-1" aria-labelledby="agentModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="agentModalLabel">Delivery Agent Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <table class="table">
-            <tbody>
-              <tr>
-                <th scope="row">Name</th>
-                <td>{{ selectedAgent?.firstname }} {{ selectedAgent?.lastname }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Zone</th>
-                <td>{{ selectedAgent?.deliveryZone }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Contact</th>
-                <td>{{ selectedAgent?.contactNumber }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Email</th>
-                <td>{{ selectedAgent?.email }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Vehicle Type</th>
-                <td>{{ selectedAgent?.vehicleType }}</td>
-              </tr>
-              <tr>
-                <th scope="row">Vehicle Number</th>
-                <td>{{ selectedAgent?.vehicleNumber }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+<!-- Modal for Viewing Agent Details -->
+<div class="modal fade" id="agentModal" tabindex="-1" aria-labelledby="agentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="agentModalLabel">Delivery Agent Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" *ngIf="selectedAgent">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">Name</th>
+              <td>{{ selectedAgent.firstname }} {{ selectedAgent.lastname }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Zone</th>
+              <td>{{ selectedAgent.deliveryZone }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Contact</th>
+              <td>{{ selectedAgent.contactNumber }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Email</th>
+              <td>{{ selectedAgent.email }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Vehicle Type</th>
+              <td>{{ selectedAgent.vehicleType }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Vehicle Number</th>
+              <td>{{ selectedAgent.vehicleNumber }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="!selectedAgent" class="text-center">
+        <span>No agent selected.</span>
       </div>
     </div>
   </div>
+</div>
 
 
-  <!-- Modal for Adding Delivery Agent -->
-  <!-- Modal for Adding Delivery Agent -->
-  <div class="modal fade" id="addAgentModal" tabindex="-1" aria-labelledby="addAgentModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addAgentModalLabel">Add Delivery Agent</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form (ngSubmit)="addDeliveryAgent()">
-            <div class="mb-3">
-              <label for="firstNameInput" class="form-label">First Name</label>
-              <input type="text" class="form-control" id="firstNameInput" [(ngModel)]="firstName" name="firstName" required>
+<!-- Modal for Adding Delivery Agent -->
+<div class="modal fade" id="addAgentModal" tabindex="-1" aria-labelledby="addAgentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addAgentModalLabel">Add Delivery Agent</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="agentForm" (ngSubmit)="addDeliveryAgent()">
+          <!-- First Name -->
+          <div class="mb-3">
+            <label for="firstNameInput" class="form-label">First Name</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              [ngClass]="{'is-invalid': f['firstName'].touched && f['firstName'].invalid}"
+              id="firstNameInput" 
+              formControlName="firstName">
+            <div class="invalid-feedback" *ngIf="f['firstName'].touched && f['firstName'].invalid">
+              {{ getErrorMessage('firstName') }}
             </div>
-            <div class="mb-3">
-              <label for="lastNameInput" class="form-label">Last Name</label>
-              <input type="text" class="form-control" id="lastNameInput" [(ngModel)]="lastName" name="lastName" required>
+          </div>
+
+          <!-- Last Name -->
+          <div class="mb-3">
+            <label for="lastNameInput" class="form-label">Last Name</label>
+            <input 
+              type="text" 
+              class="form-control"
+              [ngClass]="{'is-invalid': f['lastName'].touched && f['lastName'].invalid}"
+              id="lastNameInput" 
+              formControlName="lastName">
+            <div class="invalid-feedback" *ngIf="f['lastName'].touched && f['lastName'].invalid">
+              {{ getErrorMessage('lastName') }}
             </div>
-            
-            <div class="mb-3">
-              <label for="agentNameInput" class="form-label">Email ID </label>
-              <input type="text" class="form-control" id="agentNameInput" [(ngModel)]="email" name="email"
-                required>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="emailInput" class="form-label">Email ID</label>
+            <input 
+              type="email" 
+              class="form-control"
+              [ngClass]="{'is-invalid': f['email'].touched && f['email'].invalid}"
+              id="emailInput" 
+              formControlName="email">
+            <div class="invalid-feedback" *ngIf="f['email'].touched && f['email'].invalid">
+              {{ getErrorMessage('email') }}
             </div>
-            <div class="mb-3">
-              <label for="zoneInput" class="form-label">Password</label>
-              <input type="text" class="form-control" id="zoneInput" [(ngModel)]="password" name="zone" required>
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label for="passwordInput" class="form-label">Password</label>
+            <input 
+              type="password" 
+              class="form-control"
+              [ngClass]="{'is-invalid': f['password'].touched && f['password'].invalid}"
+              id="passwordInput" 
+              formControlName="password">
+            <div class="invalid-feedback" *ngIf="f['password'].touched && f['password'].invalid">
+              {{ getErrorMessage('password') }}
             </div>
-            <div class="mb-3">
-              <label for="zoneInput" class="form-label">Zone</label>
-              <input type="text" class="form-control" id="zoneInput" [(ngModel)]="zone" name="zone" required>
+          </div>
+
+          <!-- Delivery Zone -->
+          <div class="mb-3">
+            <label for="deliveryZoneInput" class="form-label">Zone</label>
+            <input 
+              type="text" 
+              class="form-control"
+              [ngClass]="{'is-invalid': f['deliveryZone'].touched && f['deliveryZone'].invalid}"
+              id="deliveryZoneInput" 
+              formControlName="deliveryZone">
+            <div class="invalid-feedback" *ngIf="f['deliveryZone'].touched && f['deliveryZone'].invalid">
+              {{ getErrorMessage('deliveryZone') }}
             </div>
-            <div class="mb-3">
-              <label for="contactInput" class="form-label">Contact Number</label>
-              <input type="text" class="form-control" id="contactInput" [(ngModel)]="contactNumber" name="contactNumber"
-                required>
+          </div>
+
+          <!-- Contact Number -->
+          <div class="mb-3">
+            <label for="contactInput" class="form-label">Contact Number</label>
+            <input 
+              type="text" 
+              class="form-control"
+              [ngClass]="{'is-invalid': f['contactNumber'].touched && f['contactNumber'].invalid}"
+              id="contactInput" 
+              formControlName="contactNumber">
+            <div class="invalid-feedback" *ngIf="f['contactNumber'].touched && f['contactNumber'].invalid">
+              {{ getErrorMessage('contactNumber') }}
             </div>
-            <div class="mb-3">
-              <label for="vehicleTypeInput" class="form-label">Vehicle Type</label>
-              <input type="text" class="form-control" id="vehicleTypeInput" [(ngModel)]="vehicleType" name="vehicleType"
-                required>
+          </div>
+
+          <!-- Vehicle Type -->
+          <div class="mb-3">
+            <label for="vehicleTypeInput" class="form-label">Vehicle Type</label>
+            <input 
+              type="text" 
+              class="form-control"
+              [ngClass]="{'is-invalid': f['vehicleType'].touched && f['vehicleType'].invalid}"
+              id="vehicleTypeInput" 
+              formControlName="vehicleType">
+            <div class="invalid-feedback" *ngIf="f['vehicleType'].touched && f['vehicleType'].invalid">
+              {{ getErrorMessage('vehicleType') }}
             </div>
-            <div class="mb-3">
-              <label for="vehicleNumberInput" class="form-label">Vehicle Number</label>
-              <input type="text" class="form-control" id="vehicleNumberInput" [(ngModel)]="vehicleNumber"
-                name="vehicleNumber" required>
+          </div>
+
+          <!-- Vehicle Number -->
+          <div class="mb-3">
+            <label for="vehicleNumberInput" class="form-label">Vehicle Number</label>
+            <input 
+              type="text" 
+              class="form-control"
+              [ngClass]="{'is-invalid': f['vehicleNumber'].touched && f['vehicleNumber'].invalid}"
+              id="vehicleNumberInput" 
+              formControlName="vehicleNumber">
+            <div class="invalid-feedback" *ngIf="f['vehicleNumber'].touched && f['vehicleNumber'].invalid">
+              {{ getErrorMessage('vehicleNumber') }}
             </div>
-            <button type="submit" class="btn btn-primary">Add Agent</button>
-          </form>
-        </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Add Agent</button>
+        </form>
       </div>
     </div>
   </div>
-
-
-  
+</div>
 
 <!-- Modal for Editing Delivery Agent -->
 <div class="modal fade" id="editAgentModal" tabindex="-1" aria-labelledby="editAgentModalLabel" aria-hidden="true">
@@ -235,45 +300,64 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="updateDeliveryAgent()">
+        <form [formGroup]="agentForm" (ngSubmit)="updateDeliveryAgent()">
           <div class="mb-3">
             <label for="firstNameInput" class="form-label">First Name</label>
-            <input type="text" class="form-control" id="firstNameInput" [(ngModel)]="firstName" name="firstName" required>
+            <input type="text" class="form-control" id="firstNameInput" formControlName="firstName">
+            <div *ngIf="agentForm.get('firstName')?.touched && agentForm.get('firstName')?.invalid" class="text-danger">
+              First name is required.
+            </div>
           </div>
           <div class="mb-3">
             <label for="lastNameInput" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="lastNameInput" [(ngModel)]="lastName" name="lastName" required>
+            <input type="text" class="form-control" id="lastNameInput" formControlName="lastName">
+            <div *ngIf="agentForm.get('lastName')?.touched && agentForm.get('lastName')?.invalid" class="text-danger">
+              Last name is required.
+            </div>
           </div>
           <div class="mb-3">
             <label for="emailInput" class="form-label">Email ID</label>
-            <input type="email" class="form-control" id="emailInput" [(ngModel)]="email" name="email" required>
+            <input type="email" class="form-control" id="emailInput" formControlName="email">
+            <div *ngIf="agentForm.get('email')?.touched && agentForm.get('email')?.invalid" class="text-danger">
+              A valid email is required.
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="passwordInput" class="form-label">Password</label>
-            <input type="password" class="form-control" id="passwordInput" [(ngModel)]="password" name="password" required>
-          </div>
+          
           <div class="mb-3">
             <label for="zoneInput" class="form-label">Zone</label>
-            <input type="text" class="form-control" id="zoneInput" [(ngModel)]="zone" name="zone" required>
+            <input type="text" class="form-control" id="zoneInput" formControlName="zone">
+            <div *ngIf="agentForm.get('zone')?.touched && agentForm.get('zone')?.invalid" class="text-danger">
+              Zone is required.
+            </div>
           </div>
           <div class="mb-3">
             <label for="contactInput" class="form-label">Contact Number</label>
-            <input type="text" class="form-control" id="contactInput" [(ngModel)]="contactNumber" name="contactNumber" required>
+            <input type="text" class="form-control" id="contactInput" formControlName="contactNumber">
+            <div *ngIf="agentForm.get('contactNumber')?.touched && agentForm.get('contactNumber')?.invalid" class="text-danger">
+              A valid contact number is required.
+            </div>
           </div>
           <div class="mb-3">
             <label for="vehicleTypeInput" class="form-label">Vehicle Type</label>
-            <input type="text" class="form-control" id="vehicleTypeInput" [(ngModel)]="vehicleType" name="vehicleType" required>
+            <input type="text" class="form-control" id="vehicleTypeInput" formControlName="vehicleType">
+            <div *ngIf="agentForm.get('vehicleType')?.touched && agentForm.get('vehicleType')?.invalid" class="text-danger">
+              Vehicle type is required.
+            </div>
           </div>
           <div class="mb-3">
             <label for="vehicleNumberInput" class="form-label">Vehicle Number</label>
-            <input type="text" class="form-control" id="vehicleNumberInput" [(ngModel)]="vehicleNumber" name="vehicleNumber" required>
+            <input type="text" class="form-control" id="vehicleNumberInput" formControlName="vehicleNumber">
+            <div *ngIf="agentForm.get('vehicleNumber')?.touched && agentForm.get('vehicleNumber')?.invalid" class="text-danger">
+              Vehicle number is required.
+            </div>
           </div>
-          <button type="submit" class="btn btn-primary">Update Agent</button>
+          <button type="submit" class="btn btn-primary" [disabled]="agentForm.invalid">Update Agent</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
