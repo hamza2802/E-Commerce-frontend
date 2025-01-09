@@ -15,65 +15,92 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h3 style="color: rgb(0, 0, 0);">All Products</h3>
       <div class="d-flex">
-        <input
-          type="text"
-          class="form-control me-2"
-          placeholder="Search by name or category"
-          [(ngModel)]="searchQuery"
-          (input)="filterProducts()"
-          style="width: 300px;"
-        />
+        <input type="text" class="form-control me-2" placeholder="Search by name or category" [(ngModel)]="searchQuery"
+          (input)="filterProducts()" style="width: 300px;" />
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Product</button>
       </div>
     </div>
-  
-    <!-- Product Table -->
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Sr no.</th>
-          <th scope="col">Product Name</th>
-          <th scope="col">Category</th>
-          <th scope="col">Stock</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of paginatedProducts; let i = index">
-          <th scope="row">{{ (currentPage - 1) * itemsPerPage + i + 1 }}</th>
-          <td>{{ product?.productName }}</td>
-          <td>{{ product?.category }}</td>
-          <td>{{ product?.stock }}</td>
-          <td>
-            <div class="btn-group">
-              <button
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#productModal"
-                (click)="viewProduct(product)"
-              >
-                View
-              </button>
-              <button
-                class="btn btn-warning"
-                data-bs-toggle="modal"
-                data-bs-target="#editProductModal"
-                (click)="editProduct(product)"
-              >
-                Edit
-              </button>
-              <button
-                class="btn btn-danger"
-                (click)="deleteProduct(product.productId)"
-              >
-                Delete
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  
+
+   <!-- Product Table -->
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Sr no.</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Stock</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of paginatedProducts; let i = index">
+      <th scope="row">{{ (currentPage - 1) * itemsPerPage + i + 1 }}</th>
+      <td>{{ product?.productName }}</td>
+      <td>{{ product?.category }}</td>
+      <td>{{ product?.stock }}</td>
+      <td>
+        <div class="btn-group">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal"
+            (click)="viewProduct(product)">
+            View
+          </button>
+          <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editProductModal"
+            (click)="editProduct(product)">
+            Edit
+          </button>
+          <button class="btn btn-danger" (click)="deleteProduct(product.productId)">
+            Delete
+          </button>
+          <!-- <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#csvUploadModal"
+            (click)="setSelectedProductForImages(product)">
+            Add Images (CSV)
+          </button> -->
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Add this new modal for CSV upload (outside the *ngFor loop) -->
+<!-- <div class="modal fade" id="csvUploadModal" tabindex="-1" aria-labelledby="csvUploadModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="csvUploadModalLabel">Upload Images via CSV</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <p>Product: <strong>{{ selectedProductForImages?.productName }}</strong></p>
+          <p class="mb-3">Upload a CSV file with image URLs. The CSV should have a single column named 'imageUrl'.</p>
+
+          <div class="mb-3">
+            <label for="csvFile" class="form-label">Choose CSV File</label>
+            <input type="file" class="form-control" id="csvFile" (change)="onCsvFileSelected($event)" accept=".csv">
+          </div>
+
+          <div *ngIf="csvPreview.length > 0" class="mt-3">
+            <h6>Preview of URLs from CSV:</h6>
+            <ul class="list-group">
+              <li *ngFor="let url of csvPreview.slice(0, 5)" class="list-group-item">
+                {{ url }}
+              </li>
+              <li *ngIf="csvPreview.length > 5" class="list-group-item text-muted">
+                And {{ csvPreview.length - 5 }} more...
+              </li>
+            </ul>
+          </div>
+        </div>
+        <button class="btn btn-primary" (click)="uploadImagesFromCsv()"
+          [disabled]="!csvFile || csvPreview.length === 0">
+          Upload Images
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
     <!-- Pagination Controls -->
     <nav aria-label="Product pagination">
       <ul class="pagination justify-content-center">
@@ -88,18 +115,13 @@
         </li>
       </ul>
     </nav>
-  
+
     <!-- Items per page selector -->
     <div class="d-flex justify-content-center mt-3">
       <div class="form-group">
         <label for="itemsPerPage">Items per page:</label>
-        <select 
-          id="itemsPerPage" 
-          class="form-select ms-2" 
-          style="width: auto; display: inline-block;"
-          [(ngModel)]="itemsPerPage" 
-          (change)="currentPage = 1; calculatePages()"
-        >
+        <select id="itemsPerPage" class="form-select ms-2" style="width: auto; display: inline-block;"
+          [(ngModel)]="itemsPerPage" (change)="currentPage = 1; calculatePages()">
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="20">20</option>
@@ -198,45 +220,46 @@
                 <option value="Headphones">Headphones</option>
               </select>
             </div>
-          
+
             <div class="mb-3">
               <label for="stock" class="form-label">Stock</label>
-              <input id="stock" type="number" [(ngModel)]="newProduct.stock" name="stock" class="form-control" required 
+              <input id="stock" type="number" [(ngModel)]="newProduct.stock" name="stock" class="form-control" required
                 [min]="1" />
             </div>
-          
+
             <div class="mb-3">
               <label for="productDescription" class="form-label">Description</label>
               <textarea id="productDescription" [(ngModel)]="newProduct.productDescription" name="productDescription"
                 class="form-control" rows="3" required></textarea>
             </div>
-          
+
             <div class="mb-3">
               <label for="productActualPrice" class="form-label">MRP Price</label>
               <input id="productActualPrice" type="number" [(ngModel)]="newProduct.productActualPrice"
                 name="productActualPrice" class="form-control" required [min]="1" />
             </div>
-          
+
             <div class="mb-3">
               <label for="productDiscountedPrice" class="form-label">Discounted Price</label>
               <input id="productDiscountedPrice" type="number" [(ngModel)]="newProduct.productDiscountedPrice"
                 name="productDiscountedPrice" class="form-control" required [min]="1" />
             </div>
-          
+
             <div class="mb-3">
               <label for="image" class="form-label">Product Images</label>
               <input id="image" type="file" (change)="onFileSelected($event)" class="form-control" multiple required />
             </div>
-          
+
             <div class="mt-3">
               <div *ngFor="let file of imageUrls" class="mb-2">
                 <span>{{ file.name }}</span>
               </div>
             </div>
-          
-            <button type="submit" class="btn btn-primary" [disabled]="!addProductForm.valid || !isPriceValid()">Add Product</button>
+
+            <button type="submit" class="btn btn-primary" [disabled]="!addProductForm.valid || !isPriceValid()">Add
+              Product</button>
           </form>
-          
+
         </div>
       </div>
     </div>
@@ -245,30 +268,30 @@
   <!-- Success Toast Notification -->
 
   <!-- Success Toast Notification -->
-<div *ngIf="showSuccessToast" class="toast-container">
-  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <strong class="me-auto">Success</strong>
-      <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="toast"></button>
-    </div>
-    <div class="toast-body">
-      Product added successfully!
+  <div *ngIf="showSuccessToast" class="toast-container">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Success</strong>
+        <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="toast"></button>
+      </div>
+      <div class="toast-body">
+        Product added successfully!
+      </div>
     </div>
   </div>
-</div>
 
-<!-- Failure Toast Notification (add this in your component) -->
-<div *ngIf="showFailureToast" class="toast-container">
-  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <strong class="me-auto">Error</strong>
-      <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="toast"></button>
-    </div>
-    <div class="toast-body">
-      Something went wrong! Please try again later.
+  <!-- Failure Toast Notification (add this in your component) -->
+  <div *ngIf="showFailureToast" class="toast-container">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Error</strong>
+        <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="toast"></button>
+      </div>
+      <div class="toast-body">
+        Something went wrong! Please try again later.
+      </div>
     </div>
   </div>
-</div>
 
   <!-- Modal for Editing Product -->
   <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel"
@@ -306,15 +329,16 @@
               <input id="productActualPrice" type="number" [(ngModel)]="updatedProduct.productActualPrice"
                 name="productActualPrice" class="form-control" required [min]="1" />
             </div>
-          
+
             <div class="mb-3">
               <label for="productDiscountedPrice" class="form-label">Discounted Price</label>
               <input id="productDiscountedPrice" type="number" [(ngModel)]="updatedProduct.productDiscountedPrice"
                 name="productDiscountedPrice" class="form-control" required [min]="1" />
             </div>
-           
+
             <div class="mt-3">
-              <button type="submit" class="btn btn-primary" [disabled]="!editProductForm.valid || !isPriceValid()">Save Changes</button>
+              <button type="submit" class="btn btn-primary" [disabled]="!editProductForm.valid || !isPriceValid()">Save
+                Changes</button>
             </div>
           </form>
         </div>

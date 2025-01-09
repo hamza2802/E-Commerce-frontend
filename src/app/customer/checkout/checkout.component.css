@@ -1,0 +1,14 @@
+.checkout-container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f9f9f9;
+  }
+  
+  #paypal-button-container {
+    margin-top: 20px;
+  }
+  

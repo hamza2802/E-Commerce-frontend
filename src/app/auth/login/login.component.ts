@@ -64,9 +64,9 @@ export class LoginComponent {
           } else if (userRole[0].authority === 'ROLE_CUSTOMER') {
             this.router.navigateByUrl('/customer-dashboard/customer-home');
           } else if (userRole[0].authority === 'ROLE_DELIVERY_AGENT') {
-            this.router.navigateByUrl('/delivery-dashboard');
+            this.router.navigateByUrl('/agent-dashboard/agent-assigned-orders');
           }
-        },
+        }, 
         error: (err: HttpErrorResponse) => {
           console.log(err.message);
         }

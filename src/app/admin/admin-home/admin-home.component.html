@@ -38,7 +38,7 @@
                         <div class="card-content"> 
                             <h3>Products</h3> 
                             <div class="card-stats"> 
-                                <span class="stats-number">100</span> 
+                                <span class="stats-number">{{totalProducts}}</span> 
                                 <span class="stats-label">Total Products</span> 
                             </div> 
                         </div> 
@@ -58,7 +58,7 @@
                         <div class="card-content"> 
                             <h3>Orders</h3> 
                             <div class="card-stats"> 
-                                <span class="stats-number">100</span> 
+                                <span class="stats-number">{{totalOrders}}</span> 
                                 <span class="stats-label">Total Orders</span> 
                             </div> 
                         </div> 
@@ -75,7 +75,7 @@
                         <div class="card-content"> 
                             <h3>Delivery Agents</h3> 
                             <div class="card-stats"> 
-                                <span class="stats-number">100</span> 
+                                <span class="stats-number">{{totalDeliveryAgents}}</span> 
                                 <span class="stats-label">Total Agents</span> 
                             </div> 
                         </div> 
@@ -83,25 +83,24 @@
                 </a> 
             </div> 
      
-            <div class="col-md-4"> 
-                <a routerLink="/admin-dashboard/admin-products" class="dashboard-link"> 
-                    <div class="dashboard-card"> 
-                        <div class="card-icon"> 
-                            <img src="assets/admin-images/addproducts.png" alt="Add Products"> 
-                        </div> 
-                        <div class="card-content"> 
-                            <h3>Add Products</h3> 
-                            <div class="card-stats"> 
-                                
-                                <span class="stats-label">Upload .csv file</span>  
-                                <span class="stats-label">for Batch Processing</span> 
-                                <div class = "empty-div">  </div> 
+                        <div class="col-md-4"> 
+                            <div class="dashboard-card" (click)="triggerFileInput()"> 
+                                <div class="card-icon"> 
+                                    <img src="assets/admin-images/addproducts.png" alt="Add Products"> 
+                                </div> 
+                                <div class="card-content"> 
+                                    <h3>Add Products</h3> 
+                                    <div class="card-stats"> 
+                                        <span class="stats-label">Upload .csv file</span> 
+                                        <span class="stats-label">for Batch Processing</span> 
+                                        <div class="empty-div"></div> 
+                                    </div> 
+                                </div> 
                             </div> 
-                        </div> 
+                            <input type="file" #fileInput hidden (change)="handleFileUpload($event)" accept=".csv" /> 
+                        </div>
                     </div> 
-                </a> 
-            </div> 
-        </div> 
+          
     </div> 
  
 </body> 

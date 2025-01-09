@@ -7,12 +7,12 @@ import { Observable } from 'rxjs';
 })
 export class ProductService {
 
-  private apiUrl = 'http://localhost:8080/e-commerce/products'; // Replace with your API endpoint
+  private apiUrl = 'http://localhost:8080/e-commerce/products/active'; // Replace with your API endpoint
 
   constructor(private http: HttpClient) { }
 
   // Method to fetch mobile phones from the backend
-  getMobilePhones(): Observable<any[]> {
+  getAllProducts(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl); // Adjust based on your API response
   }
 }

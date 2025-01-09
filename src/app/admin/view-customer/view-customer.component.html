@@ -35,7 +35,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let customer of filteredCustomers; let i = index">
-          <th scope="row">{{ (currentPage - 1) * itemsPerPage + i + 1 }}</th>
+          <!-- <th scope="row">{{ (currentPage - 1) * itemsPerPage + (i + 1) }}</th> -->
+          <!-- <th scope="row">{{ (currentPage - 1) * itemsPerPage + i + 1 }}</th> -->
+          <th scope="row">{{ currentPage * itemsPerPage + i + 1 }}</th>
           <td>{{ customer.firstName }} {{ customer.lastName }}</td>
           <td>{{ customer.email }}</td>
           <td>{{ customer.city }}</td>

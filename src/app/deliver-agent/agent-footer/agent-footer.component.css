@@ -1,0 +1,59 @@
+.footer {  
+    background-color: #0052cc;  
+    color: white;  
+    padding: 0rem;  
+    margin-top: 3rem; /* Fixed '3m' to '3rem' */  
+    width: 100%; /* Ensure the footer spans the full width */  
+}  
+  
+.footer-bottom {  
+    width: 100%; /* Make sure the footer-bottom spans full width */  
+    margin-top: 2rem;  
+    padding: 1rem 0;  
+    border-top: 1px solid rgba(255, 255, 255, 0.1);  
+}  
+  
+.footer-bottom-content {  
+    max-width: 1200px; /* Limit max-width */  
+    margin: 0 auto; /* Center the content */  
+    padding: 0 1rem;  
+    display: flex;  
+    justify-content: space-between;  
+    align-items: center;  
+    flex-wrap: wrap;  
+    gap: 1rem;  
+    width: 100%; /* Ensure it spans the full width of its parent */  
+}  
+  
+.footer-bottom-content p {  
+    margin: 0;  
+    color: rgba(255, 255, 255, 0.8);  
+    font-size: 0.9rem;  
+}  
+  
+.footer-links {  
+    display: flex;  
+    gap: 1.2rem;  
+}  
+  
+.footer-links a {  
+    color: rgba(255, 255, 255, 0.8);  
+    text-decoration: none;  
+    transition: color 0.3s ease;  
+    font-size: 0.9rem;  
+}  
+  
+.footer-links a:hover {  
+    color: #ffffff;  
+}  
+  
+@media (max-width: 768px) {  
+    .footer-bottom-content {  
+        flex-direction: column;  
+        text-align: center;  
+    }  
+  
+    .footer-links {  
+        justify-content: center;  
+    }  
+}

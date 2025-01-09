@@ -1,0 +1,105 @@
+<div class="container mt-5">
+    <h2 class="mb-4">Profile Information</h2>
+    <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+    <!-- Profile Picture Section -->
+    <div class="mb-4 text-center">
+      <img 
+        *ngIf="profilePictureUrl" 
+        [src]="profilePictureUrl" 
+        alt="Profile Picture" 
+        class="rounded-circle profile-pic"
+      />
+      <div class="d-flex align-items-center justify-content-center mt-3">
+        <input 
+          type="file" 
+          id="profilePicture" 
+          class="form-control me-2" 
+          (change)="onFileSelect($event)" 
+          style="max-width: 300px;" 
+        />
+        <button 
+          type="button" 
+          class="btn btn-primary" 
+          (click)="updateProfilePicture()" 
+          [disabled]="!profilePicture">
+          Update Profile Picture
+        </button>
+      </div>
+    </div>
+  
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" class="form-control" formControlName="email" placeholder="Enter your email" [readonly]="true" />
+      </div>
+  
+      <!-- First Name -->
+      <div class="mb-3">
+        <label for="firstName" class="form-label">First Name</label>
+        <input type="text" id="firstName" class="form-control" formControlName="firstName" placeholder="Enter your first name" />
+      </div>
+  
+      <!-- Last Name -->
+      <div class="mb-3">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input type="text" id="lastName" class="form-control" formControlName="lastName" placeholder="Enter your last name" />
+      </div>
+  
+      <!-- Contact Number -->
+      <div class="mb-3">
+        <label for="contactNumber" class="form-label">Contact Number</label>
+        <input type="text" id="contactNumber" class="form-control" formControlName="contactNumber" placeholder="Enter your contact number" />
+      </div>
+  
+      <!-- Alternate Contact Number -->
+      <div class="mb-3">
+        <label for="alternateContactNumber" class="form-label">Alternate Contact Number</label>
+        <input type="text" id="alternateContactNumber" class="form-control" formControlName="alternateContactNumber" placeholder="Enter your alternate contact number" />
+      </div>
+  
+      <!-- Address -->
+      <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <textarea id="address" class="form-control" formControlName="address" rows="3" placeholder="Enter your address"></textarea>
+      </div>
+  
+      <!-- City -->
+      <div class="mb-3">
+        <label for="city" class="form-label">City</label>
+        <input type="text" id="city" class="form-control" formControlName="city" placeholder="Enter your city" />
+      </div>
+  
+      <!-- State -->
+      <div class="mb-3">
+        <label for="state" class="form-label">State</label>
+        <input type="text" id="state" class="form-control" formControlName="state" placeholder="Enter your state" />
+      </div>
+  
+      <!-- Pincode -->
+      <div class="mb-3">
+        <label for="pincode" class="form-label">Pincode</label>
+        <input type="number" id="pincode" class="form-control" formControlName="pincode" placeholder="Enter your pincode" />
+      </div>
+  
+      <!-- Save Button -->
+      <button type="submit" class="btn btn-primary" [disabled]="!profileForm.valid">Save Changes</button>
+    </form>
+  </div>
+  
+  <!-- Bootstrap Modal for Confirmation -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalLabel">Profile Updated</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Your profile has been updated successfully.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="closeModalAndRedirect()">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>

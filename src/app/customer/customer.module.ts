@@ -8,7 +8,14 @@ import { CustomerHeaderComponent } from './customer-header/customer-header.compo
 import { CategoryMobileComponent } from './category-mobile/category-mobile.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CartComponent } from './customer-cart/customer-cart.component';
-
+import { CategoryHeadphonesComponent } from './category-headphones/category-headphones.component';
+import { CategorySmartwatchesComponent } from './category-smartwatches/category-smartwatches.component';
+import { ProfileComponent } from './profile/profile.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CustomerOrdersComponent } from './customer-orders/customer-orders.component';
+import { CustomerFooterComponent } from './customer-footer/customer-footer.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { SearchpageComponent } from './searchpage/searchpage.component';
 
 
 
@@ -22,14 +29,28 @@ import { CartComponent } from './customer-cart/customer-cart.component';
     CustomerHeaderComponent,
     CategoryMobileComponent,
     ProductDetailsComponent,
-    CartComponent
+    CartComponent,
+    CategoryHeadphonesComponent,
+    CategorySmartwatchesComponent,
+    ProfileComponent,
+    CustomerOrdersComponent,
+    CustomerFooterComponent,
+    CheckoutComponent,
+    SearchpageComponent
     
    
   ],
   imports: [
     CommonModule,
     RouterModule,
+    ReactiveFormsModule,
+    FormsModule,RouterModule
     
+  ],
+
+  exports:[
+    CustomerHeaderComponent,
+    SearchpageComponent
   ]
 })
 export class CustomerModule { }

@@ -9,7 +9,7 @@ import { CustomerDetails, ViewCustomerservicesService } from 'src/app/services/a
 export class ViewCustomerComponent implements OnInit {
   customers: CustomerDetails[] = [];
   filteredCustomers: CustomerDetails[] = [];
-  currentPage = 1   ;
+  currentPage = 0;
   totalPages = 0;
   selectedCustomer: CustomerDetails | null = null;
   searchTerm: string = '';

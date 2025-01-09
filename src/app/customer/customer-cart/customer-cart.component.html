@@ -5,49 +5,57 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="cart-container">
-        <h1>Your Cart</h1>
-        <div *ngIf="cartItems && cartItems.length > 0; else emptyCart">
-          <div *ngFor="let item of cartItems" class="cart-item">
-            <!-- Display Product Image -->
-            <img [src]="item.productImageUrls[0]" alt="{{ item.productName }}" />
-            <div class="details">
-              <h2>{{ item.productName }}</h2>
-              <!-- Display Product Price -->
-              <p>Price: ₹{{ item.productPrice }}</p>
-              <div class="quantity">
-                <button (click)="updateQuantity(item.cartItemId, -1)">-</button>
-                <span>{{ item.quantity }}</span>
-                <button (click)="updateQuantity(item.cartItemId, 1)">+</button>
-              </div>
-              <button class="remove-btn" (click)="removeItem(item.cartItemId)">Remove</button>
-            </div>
+  <div class="cart-container">
+    <h1>Your Cart</h1>
+    <div *ngIf="cartItems && cartItems.length > 0; else emptyCart">
+      <div *ngFor="let item of cartItems" class="cart-item">
+        <img [src]="item.productImageUrls[0]" 
+             [alt]="item.productName"
+             onerror="this.src='assets/placeholder.jpg'"/> 
+        <div class="details">
+          <h2>{{ item.productName }}</h2>
+          <p>Price: ₹{{ item.productPrice }}</p>
+          <div class="quantity">
+            <button (click)="updateQuantity(item.cartItemId, -1)" [disabled]="item.quantity <= 1">-</button>
+            <span>{{ item.quantity }}</span>
+            <button (click)="updateQuantity(item.cartItemId, 1)">+</button>
           </div>
-
-          <!-- Total Price -->
-          <div class="total-price">
-            <p>Total Price: ₹{{ calculateTotalPrice() }}</p>
-          </div>
-
-          <button class="checkout-btn" (click)="checkout()">Checkout</button>
+          <button class="remove-btn" (click)="removeItem(item.cartItemId)">Remove</button>
         </div>
-        <ng-template #emptyCart>
-          <p>Your cart is empty.</p>
-        </ng-template>
+      </div>
+  
+      <div class="total-price">
+        <p>Total Price: ₹{{ calculateTotalPrice() }}</p>
+      </div>
+  
+      <button class="checkout-btn" (click)="checkout()">Checkout</button>
     </div>
-
-    <!-- Popup Modal -->
-<div *ngIf="orderPlaced" class="popup-overlay">
+    
+    <ng-template #emptyCart>
+      <p>Your cart is empty.</p>
+    </ng-template>
+  </div>
+  
+  <!-- Popup Modal -->
+  <div *ngIf="orderPlaced" class="popup-overlay">
     <div class="popup-container">
       <h2>Order Placed Successfully!</h2>
       <p>Your order has been placed successfully.</p>
       <div class="order-details">
-        <p><strong>Order ID:</strong> {{ orderDetails.orderId }}</p>
-        <p><strong>Total Price:</strong> ₹{{ orderDetails.totalPrice }}</p>
+        <p><strong>Order ID:</strong> {{ orderDetails?.orderId }}</p>
+        <p><strong>Total Price:</strong> ₹{{ orderDetails?.totalPrice }}</p>
       </div>
       <button (click)="closeOrderPopup()">Close</button>
     </div>
   </div>
+
+  <div *ngIf="successPopupVisible" class="popup-overlay">
+    <div class="popup-container">
+      <p>{{ successPopupMessage }}</p>
+    </div>
+  </div>
+  
+  
   
   <!-- Your existing cart content goes here -->
   

@@ -1,0 +1,219 @@
+.category-mobile-section {
+    padding: 20px 0;
+}
+
+.product-image-container img {
+    width: 100%;
+    height: 200px; /* Adjust height as needed */
+    object-fit: contain; /* Ensures the whole image is visible */
+    background-color: #ffffff; /* Optional: adds a background for empty space */
+    border-radius: 5px;
+}
+.product-image-container {
+    position: relative;
+    padding: 10px; /* Add padding between the image and the card */
+    height: 220px; /* Adjust height as needed */
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.description {
+    min-height: 50px; /* Adjust based on the expected description size */
+    margin-bottom: 15px;
+}
+
+.price-and-cart {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price-container {
+    text-align: left;
+    font-size: 1.1em;
+}
+
+
+
+.original-price {
+    text-decoration: line-through;
+    color: rgb(145, 145, 145);
+    display: block;
+    font-size: 0.9em; /* Smaller size for actual price */
+    margin-top: 5px;
+}
+
+.add-to-cart-btn {
+    margin-left: auto;
+    font-weight: bold;
+    font-style: unset;
+    background-color:  #efeb35;
+    color: black;
+    align-items: center; 
+    border-radius: 4px; 
+    border-style: solid; 
+    border-width: 0; 
+    display: inline-flex 
+; 
+    font-size: 15px; 
+    font-weight: 600; 
+    height: 35px; 
+    justify-content: center; 
+    padding-left: 28px; 
+    padding-right: 28px; 
+    transition: all .3s ease-out 0s;
+}
+
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.product-image-container img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.price-container {
+    text-align: left;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 1.2em;
+    color:#045bc4;
+}
+
+.original-price {
+    text-decoration: line-through;
+    font-size: 0.9em;
+    color: rgb(145, 145, 145);
+}
+
+.add-to-cart-btn {
+    margin-left: auto;
+    
+}
+
+/* new csss */
+/* General Styling */
+.category-headphones-section {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Sidebar Styling */
+  .filter-sidebar {
+    position: sticky; /* Makes the filter section fixed */
+    top: 20px; /* Adjust this for spacing from the top */
+    height: calc(100vh - 40px); /* Full viewport height minus padding/margin */
+    overflow-y: auto; /* Enables scrolling within the filter section */
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .filter-container {
+    position: relative;
+  }
+  
+  /* Products Section Styling */
+  .product-section {
+    overflow-y: auto; /* Enables scrolling within the product section */
+  }
+  
+  /* Filter Section Styles */
+  .filter-section {
+    margin-bottom: 20px;
+  }
+  
+  .filter-section h5 {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .form-check {
+    margin-bottom: 10px;
+  }
+  
+  .price-range {
+    width: 100%;
+  }
+  
+  .price-range-values {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    margin-top: 5px;
+  }
+  
+  /* Buttons */
+  .btn {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  
+  /* Product Card Styles */
+  .product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .product-image-container img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background-color: #ffffff;
+    border-radius: 5px;
+  }
+  
+  .price-container {
+    text-align: left;
+  }
+  
+  .price {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #045bc4;
+  }
+  
+  .original-price {
+    text-decoration: line-through;
+    font-size: 0.9em;
+    color: rgb(145, 145, 145);
+  }
+  

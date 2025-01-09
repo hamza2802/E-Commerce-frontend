@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/customer/cart.service';
 
@@ -24,8 +23,8 @@ export class ProductDetailsComponent implements OnInit {
 
   addToCart(product: any) {
     this.cartService.addToCart(product).subscribe({
-      next: () => alert(`${product.productName} added to cart successfully!`),
-      error: (err) => console.error('Failed to add to cart:', err),
+      next: () => alert(`${product.productName} added/updated in the cart successfully!`),
+      error: (err) => console.error('Failed to add/update cart:', err),
     });
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/customer/product.service';
 import { Router } from '@angular/router';
-// Import the service
+import { CartService } from 'src/app/services/customer/cart.service'; // Import CartService
 
 @Component({
   selector: 'app-customer-home',
@@ -10,40 +10,79 @@ import { Router } from '@angular/router';
 })
 export class CustomerHomeComponent implements OnInit {
   mobilePhones: any[] = [];
+  products: any[] = [];
   viewAllClicked: boolean = false; // Define the viewAllClicked property
+  headphones : any[] = [];
+  smartwatches: any[] = [];
 
-  constructor(private productService: ProductService , private router : Router) { }
+  constructor(
+    private productService: ProductService, 
+    private router: Router,
+    private cartService: CartService  // Inject CartService
+  ) { }
 
   ngOnInit(): void {
-    // Fetch data from the service when the component initializes
-    this.productService.getMobilePhones().subscribe(
+    this.productService.getAllProducts().subscribe(
       (data) => {
-        this.mobilePhones = data;
-        console.log(data);
-         // Store the fetched data in mobilePhones
+        this.products = data;
+
+        // Categorizing products
+        this.mobilePhones = data.filter(product => product.category === 'Smartphones');
+        this.headphones = data.filter(product => product.category === 'Headphones');
+        this.smartwatches = data.filter(product => product.category === 'Smartwatches');
+
+        console.log('All Products:', this.products);
+        console.log('Smartphones:', this.mobilePhones);
+        console.log('Headphones:', this.headphones);
+        console.log('Smartwatches:', this.smartwatches);
       },
       (error) => {
-        console.error('Error fetching mobile phones:', error);
+        console.error('Error fetching products:', error);
       }
     );
   }
 
   // Method to toggle the viewAllClicked state
-  viewAll() {
-    
+  viewMobilePage() { 
     this.router.navigate(['customer-dashboard/customer-mobile']); // Toggle the state
     this.viewAllClicked = !this.viewAllClicked;
     console.log('Viewing all products:', this.viewAllClicked);
-    
+  }
+
+  viewHeadphonePage() { 
+    this.router.navigate(['customer-dashboard/customer-headphones']); // Toggle the state
+    this.viewAllClicked = !this.viewAllClicked;
+    console.log('Viewing all products:', this.viewAllClicked);
+  }
+
+  viewWatchesPage() { 
+    this.router.navigate(['customer-dashboard/customer-smartwatches']); // Toggle the state
+    this.viewAllClicked = !this.viewAllClicked;
+    console.log('Viewing all products:', this.viewAllClicked);
   }
 
   buyNow(product: any) {
     console.log('Buying', product.name);
-    // Add logic to handle buying the product (e.g., adding to cart or redirecting to checkout)
+    this.cartService.addToCart(product).subscribe(
+      () => {
+        console.log('Product added to cart');
+        this.router.navigate(['customer-dashboard/customer-cart']);  // Redirect to cart page
+      },
+      (error) => {
+        console.error('Error adding product to cart:', error);
+      }
+    );
   }
 
   addToCart(product: any) {
     console.log('Adding to cart', product.productName);
-    // Handle the logic to add the product to the cart
+    this.cartService.addToCart(product).subscribe(
+      () => {
+        console.log('Product added to cart');
+      },
+      (error) => {
+        console.error('Error adding product to cart:', error);
+      }
+    );
   }
 }

@@ -1,38 +1,104 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div class="category-mobile-section mt-4">
-        <div class="container mt-4">
-            <h2>All Mobile Phones</h2>
-            <p>Explore all our available mobile phones below.</p>
-    
-            <div class="row">
-                <div class="col-md-3 mb-4" *ngFor="let product of mobilePhones">
-                    <div class="card h-100 product-card" (click)="viewProduct(product)">
-                        <div class="product-image-container position-relative">
-                            <img [src]="product.imageUrls[0]" class="card-img-top" alt="{{ product.productName }}">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ product.productName }}</h5>
-                            <div class="price-and-cart d-flex justify-content-between align-items-center">
-                                <div class="price-container">
-                                    <span class="price">${{ product.productDiscountedPrice }}</span>
-                                    <span class="original-price">${{ product.productActualPrice }}</span>
-                                </div>
-                                <button class="btn btn-secondary add-to-cart-btn" (click)="addToCart(product)">
-                                    Add to Cart
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="category-headphones-section mt-4">
+    <div class="container mt-4">
+      <h2>All Mobile Phones</h2>
+      <p>Explore all our available mobile phones below.</p>
+  
+      <div class="row">
+        <!-- Sidebar Section -->
+        <div class="col-md-3 filter-sidebar">
+          <div class="filter-container">
+            <h4>Filters</h4>
+  
+            <!-- Brand Filter -->
+            <div class="filter-section">
+              <h5>Brand</h5>
+              <div *ngFor="let brand of brands" class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  [id]="brand"
+                  [value]="brand"
+                  (change)="toggleBrandSelection(brand)"
+                  [checked]="selectedBrands.includes(brand)"
+                />
+                <label class="form-check-label" [for]="brand">{{ brand }}</label>
+              </div>
             </div>
+  
+            <!-- Price Filter -->
+            <div class="filter-section">
+              <h5>Price Range</h5>
+              <input
+                type="range"
+                min="0"
+                [max]="maxPrice"
+                [(ngModel)]="priceRange.max"
+                (input)="applyFilters()"
+                class="price-range"
+              />
+              <div class="price-range-values">
+                <span>Min: ₹{{ priceRange.min }}</span>
+                <span>Max: ₹{{ priceRange.max }}</span>
+              </div>
+            </div>
+  
+            <!-- Price Sorting -->
+            <div class="filter-section">
+              <h5>Sort by Price</h5>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  class="form-check-input"
+                  id="low-to-high"
+                  name="priceSort"
+                  (change)="changeSortOrder('low-to-high')"
+                  [checked]="sortOrder === 'low-to-high'"
+                />
+                <label class="form-check-label" for="low-to-high">Low to High</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  class="form-check-input"
+                  id="high-to-low"
+                  name="priceSort"
+                  (change)="changeSortOrder('high-to-low')"
+                  [checked]="sortOrder === 'high-to-low'"
+                />
+                <label class="form-check-label" for="high-to-low">High to Low</label>
+              </div>
+            </div>
+  
+            <!-- Clear Filters -->
+            <button class="btn btn-secondary w-100 mt-3" (click)="clearFilters()">Clear All Filters</button>
+          </div>
         </div>
+  
+        <!-- Products Section -->
+        <div class="col-md-9 product-section">
+          <div class="row">
+            <div class="col-md-4 mb-4" *ngFor="let product of filteredMobilephones">
+              <div class="card h-100 product-card" (click)="viewProduct(product)">
+                <div class="product-image-container position-relative">
+                  <img [src]="product.imageUrls[0]" class="card-img-top" alt="{{ product.productName }}">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">{{ product.productName }}</h5>
+                  <div class="price-and-cart d-flex justify-content-between align-items-center">
+                    <div class="price-container">
+                      <span class="price">₹{{ product.productDiscountedPrice }}</span>
+                      <span class="original-price">₹ {{ product.productActualPrice }}</span>
+                    </div>
+                    <button class="btn btn-secondary add-to-cart-btn" (click)="addToCart(product)">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    
-</body>
-</html>
+  </div>
+  

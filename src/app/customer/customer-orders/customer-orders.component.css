@@ -1,0 +1,201 @@
+/* Container Styles */
+.orders-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Header Styles */
+  h1 {
+    color: #2d3748;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 600;
+    border-bottom: 3px solid #4299e1;
+    padding-bottom: 1rem;
+  }
+  
+  /* Order Item Card */
+  .order-item {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .order-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Headings within order items */
+  .order-item h2 {
+    color: #2b6cb0;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .order-item h3 {
+    color: #2d3748;
+    font-size: 1.25rem;
+    margin: 1rem 0;
+  }
+  
+  .order-item h4 {
+    color: #4a5568;
+    font-size: 1.1rem;
+    margin: 1rem 0;
+  }
+  
+  /* Paragraph styles */
+  .order-item p {
+    color: #4a5568;
+    margin: 0.5rem 0;
+    line-height: 1.6;
+  }
+  
+  /* Button styles */
+  .order-item button {
+    background: #4299e1;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    margin-top: 1rem;
+  }
+  
+  .order-item button:hover {
+    background: #3182ce;
+  }
+  
+  .order-item button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  }
+  
+  /* Close button specific styles */
+  .order-details button {
+    background: #718096;
+  }
+  
+  .order-details button:hover {
+    background: #4a5568;
+  }
+  
+  /* Order details section */
+  .order-details {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: #f7fafc;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  /* List styles */
+  .order-details ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .order-details li {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #4a5568;
+  }
+  
+  .order-details li:last-child {
+    border-bottom: none;
+  }
+  
+  /* Empty orders message */
+  .orders-container ng-template p {
+    text-align: center;
+    color: #718096;
+    font-size: 1.2rem;
+    padding: 3rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Price and status highlights */
+  strong {
+    color: #2d3748;
+    font-weight: 600;
+  }
+  
+  /* Animation keyframes */
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .orders-container {
+      padding: 1rem;
+    }
+    
+    h1 {
+      font-size: 2rem;
+    }
+    
+    .order-item {
+      padding: 1rem;
+    }
+    
+    .order-item h2 {
+      font-size: 1.25rem;
+    }
+    
+    .order-details {
+      padding: 1rem;
+    }
+  }
+  
+  /* Status Badge Styles */
+  .order-item p strong:contains("Status") + span {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-left: 0.5rem;
+  }
+  
+  [data-status="Processing"] {
+    background: #ebf8ff;
+    color: #2c5282;
+  }
+  
+  [data-status="Shipped"] {
+    background: #f0fff4;
+    color: #276749;
+  }
+  
+  [data-status="Delivered"] {
+    background: #e6fffa;
+    color: #234e52;
+  }
+  
+  [data-status="Cancelled"] {
+    background: #fff5f5;
+    color: #9b2c2c;
+  }

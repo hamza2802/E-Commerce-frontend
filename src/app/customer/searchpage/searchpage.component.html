@@ -1,0 +1,51 @@
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-12">
+        <h2>Search Results for "{{ searchQuery }}"</h2>
+        
+        <!-- Loading spinner -->
+        <div *ngIf="loading" class="text-center my-5">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+  
+        <!-- Error message -->
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+  
+        <!-- No results message -->
+        <div *ngIf="noResults && !loading && !errorMessage" class="alert alert-info">
+          No products found matching your search.
+        </div>
+  
+        <!-- Search results -->
+        <div class="row" *ngIf="!loading && searchResults.length > 0">
+          <div class="col-md-4 mb-4" *ngFor="let product of searchResults">
+            <div class="card h-100 product-card" (click)="viewProduct(product)">
+              <div class="product-image-container position-relative">
+                <img [src]="product.imageUrls[0]" 
+                     class="card-img-top" 
+                     [alt]="product.productName"
+                     (error)="handleImageError($event)">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{ product.productName }}</h5>
+                <div class="price-and-cart d-flex justify-content-between align-items-center">
+                  <div class="price-container">
+                    <span class="price">${{ product.productDiscountedPrice }}</span>
+                    <span class="original-price">${{ product.productActualPrice }}</span>
+                  </div>
+                  <button class="btn btn-secondary add-to-cart-btn" (click)="addToCart($event, product)">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
