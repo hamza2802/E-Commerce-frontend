@@ -489,3 +489,17 @@ h3 {
   }
 }     
 
+
+.toast-success {
+  background-color: #28a745 !important;
+  color: white !important;
+}
+
+.toast-error {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+
+
+
+

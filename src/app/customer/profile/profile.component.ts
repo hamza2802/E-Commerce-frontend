@@ -87,9 +87,15 @@ export class ProfileComponent implements OnInit {
           this.successMessage = 'Profile picture updated successfully.';
           this.isEditing = false;
           this.customerService.setLoggedInUser({ ...this.profileForm.value, profilePicture: this.profilePictureUrl });
-          // Show success modal
-          const modal = new bootstrap.Modal(document.getElementById('successModal'));
-          modal.show();
+  
+          // Show the profile picture update confirmation modal
+          const modalElement = document.getElementById('updatePictureModal');
+          if (modalElement) {
+            console.log("helloooooooo");
+            
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+          }
         },
         (error) => {
           this.errorMessage = 'Failed to update profile picture.';
@@ -97,6 +103,8 @@ export class ProfileComponent implements OnInit {
       );
     }
   }
+  
+  
 
   // Save Profile Information
   saveProfile(): void {

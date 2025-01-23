@@ -3,6 +3,7 @@ import { OrderservicesService } from 'src/app/services/admin/orderservices.servi
 
 import { DeliveryAgentService } from 'src/app/services/delivery-agent/deliveryAgentService';
 import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-orders-dashboard',
@@ -33,7 +34,8 @@ export class OrdersDashboardComponent implements OnInit {
 
   constructor(
     private orderService: OrderservicesService,
-    private deliveryAgentService: DeliveryAgentService
+    private deliveryAgentService: DeliveryAgentService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -111,22 +113,6 @@ export class OrdersDashboardComponent implements OnInit {
   
   
 
-  // View delivery agent for the selected order
-  // viewDeliveryAgent(order: any): void {
-  //   this.selectedOrder = order;
-    
-  //   if (order.status === 'OUT_FOR_DELIVERY' || order.status === 'DELIVERED') {
-  //     if (order.deliveryAgent) {
-  //       this.selectedDeliveryAgentId = order.deliveryAgent.id;
-  //       this.isAgentModalVisible = true;
-  //       this.isAgentModalVisibleAssign = false;
-  //     } else {
-  //       alert('No delivery agent information available for this order.');
-  //     }
-  //   } else {
-  //     alert('This order is not out for delivery or delivered.');
-  //   }
-  // }
 
 
   viewDeliveryAgent(order: any): void {
@@ -251,7 +237,7 @@ export class OrdersDashboardComponent implements OnInit {
     this.orderService.assignDeliveryAgent(this.selectedOrder.orderId, agent.email) // Use agent email instead of ID
       .subscribe({
         next: (response) => {
-          alert(`Successfully assigned delivery agent to Order #${this.selectedOrder.orderId}`);
+          this.toastr.success(`Successfully assigned delivery agent to Order #${this.selectedOrder.orderId}`, 'Success');
           this.closeAgentModal();
           this.filterOrders(this.currentStatus);
         },

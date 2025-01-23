@@ -29,6 +29,8 @@ export class CustomerService {
   }  
   
   saveCustomerDetails(customer: any): Observable<any> {  
+    console.log("hi");
+    
     return this.http.put<any>(this.apiUrl1, customer);  
   }  
   

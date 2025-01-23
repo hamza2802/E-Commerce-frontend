@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerOrderService } from 'src/app/services/customer/customer-order.service';
 import { CartService } from 'src/app/services/customer/cart.service';
-
+import { ToastrService } from 'ngx-toastr';
 declare var paypal: any; // Declare PayPal script
 
 interface PayPalActions {
@@ -24,6 +24,7 @@ export class CheckoutComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private customerOrderService: CustomerOrderService,
+    private toastr: ToastrService,
     private cartService: CartService
   ) {}
 
@@ -66,7 +67,7 @@ export class CheckoutComponent implements OnInit {
           console.log(transactionDetails);
           
       
-          alert('Transaction completed successfully!');
+          this.toastr.success(`Thansaction Completed Successfully`, 'Success');
 
           // Create order and clear the cart
           this.createOrderAndClearCart();
@@ -84,7 +85,7 @@ export class CheckoutComponent implements OnInit {
     this.customerOrderService.createOrder().subscribe({
       next: (response) => {
         console.log('Order created successfully:', response);
-        alert('Order created successfully!');
+        
 
         // Clear the cart after order creation
         this.cartService.clearCart().subscribe({
@@ -101,7 +102,7 @@ export class CheckoutComponent implements OnInit {
       },
       error: (err) => {
         console.error('Failed to create order:', err);
-        alert('Failed to create order. Please try again.');
+        
       }
     });
   }

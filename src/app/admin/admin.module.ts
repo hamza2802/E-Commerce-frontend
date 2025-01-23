@@ -36,7 +36,7 @@ import { AdminFooterComponent } from './admin-footer/admin-footer.component';
     OrdersModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule,OrdersModule // Add FormsModule for form validation
+    ReactiveFormsModule, // Add FormsModule for form validation
     
     
   ],

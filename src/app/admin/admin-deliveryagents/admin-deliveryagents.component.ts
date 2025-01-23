@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DeliveryAgentService } from 'src/app/services/delivery-agent/deliveryAgentService';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-deliveryagents',
@@ -64,7 +65,8 @@ export class AdminDeliveryagentsComponent implements OnInit {
 
   constructor(
     private deliveryAgentService: DeliveryAgentService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -193,7 +195,7 @@ export class AdminDeliveryagentsComponent implements OnInit {
         this.deliveryAgents.push(response);
         this.filterAgents();
         this.resetForm();
-        alert('Agent added successfully!');
+        this.toastr.success(`Agent Added Successfully!`, 'Success');
       },
       error: (error) => {
         console.error('Error adding delivery agent:', error);
@@ -232,7 +234,7 @@ export class AdminDeliveryagentsComponent implements OnInit {
           this.filterAgents(); // Reapply search filter after updating
         }
         this.resetForm();
-        alert('Agent updated successfully!');
+        this.toastr.success('Agent updated successfully!', 'Success');
         `$('#editAgentModal').modal('hide')`; // Close the modal after successful update
       },
       error: (error) => {
@@ -246,7 +248,7 @@ export class AdminDeliveryagentsComponent implements OnInit {
     console.log("Deleting agent with id:", agentId);
   
     this.deliveryAgentService.deleteDeliveryAgent(agentId).subscribe({
-      next: () => {
+      next: (response: string) => {
         console.log("Agent deleted successfully");
   
         // Remove agent from main array
@@ -270,7 +272,7 @@ export class AdminDeliveryagentsComponent implements OnInit {
         }
         console.log("hi3");
   
-        alert('Agent deleted successfully!');
+        this.toastr.success(`Agent Deleted Successfully!`, 'Success');
         this.fetchDeliveryAgents();
       },
       error: (error) => {

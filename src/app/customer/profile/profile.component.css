@@ -192,3 +192,15 @@ input[type="file"]:hover {
 .btn-primary:active {
   animation: submitPulse 0.3s ease-in-out;
 }
+
+
+.toast {
+  background-color: #28a745; /* Green color for success */
+  color: white;
+  font-size: 0.9rem;
+  border-radius: 5px;
+}
+
+.toast .btn-close-white {
+  filter: invert(1); /* Ensures the close button is visible on dark backgrounds */
+}

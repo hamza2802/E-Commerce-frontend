@@ -19,6 +19,7 @@ import { JwtInterceptor } from './jwt.interceptor';
 import { CustomerModule } from './customer/customer.module'; 
 import { ReactiveFormsModule } from '@angular/forms'; 
 import { DeliveryAgentModule } from './deliver-agent/delivery-agent.module'; 
+import { ToastrModule } from 'ngx-toastr';
  
  
  
@@ -51,7 +52,14 @@ import { DeliveryAgentModule } from './deliver-agent/delivery-agent.module';
     HttpClientModule, 
     CustomerModule, 
     ReactiveFormsModule, 
-    DeliveryAgentModule 
+    DeliveryAgentModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-center-right', // Use custom position class
+      preventDuplicates: true,
+    })
+    
+    
      
      
  

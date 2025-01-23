@@ -3,3 +3,14 @@
 
 /* html, body { height: 100%; } */
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.toast-center-right {
+    position: fixed !important;  /* Fixed positioning relative to the viewport */
+    top: 1rem !important; /* Fixed position from the top */
+    right: 1rem !important; /* Fixed position from the right edge */
+    z-index: 9999 !important; /* Ensure it is above other elements */
+    pointer-events: none; /* Prevent blocking clicks on underlying elements */
+  }
+  
+  
+  

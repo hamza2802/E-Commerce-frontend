@@ -80,7 +80,7 @@ export class CartService {
    
    
  
-  // Update the quantity of a product in the cart 
+  
   // Update the quantity of a product in the cart 
 updateCartItemQuantity(cartItemId: number, quantity: number): Observable<void> { 
   console.log('Requested Quantity:', quantity, 'Available Stock:', this.productDetails.stock, 'Cart Item ID:', cartItemId); 

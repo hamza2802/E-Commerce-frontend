@@ -26,11 +26,10 @@ export class DeliveryAgentService {
     return this.http.put<any>(`${this.apiUrl}/update/${agent.id}`, agent);
   }
 
-  deleteDeliveryAgent(agentId: number): Observable<any> {
-    console.log("hee"+agentId);
-    
-    return this.http.delete<any>(`${this.apiUrl}/${agentId}`);
+  deleteDeliveryAgent(agentId: number): Observable<string> {
+    return this.http.delete(`${this.apiUrl}/${agentId}`, { responseType: 'text' });
   }
+  
 
   getDeliveryAgent(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/details`,);

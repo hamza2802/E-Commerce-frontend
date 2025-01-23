@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/customer/product.service';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/customer/cart.service'; // Import CartService
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-customer-home',
@@ -20,6 +21,7 @@ export class CustomerHomeComponent implements OnInit {
   constructor(
     private productService: ProductService, 
     private router: Router,
+    private toastr: ToastrService,
     private cartService: CartService  // Inject CartService
   ) { }
 
@@ -85,10 +87,14 @@ export class CustomerHomeComponent implements OnInit {
     console.log('Adding to cart', product.productName);
     this.cartService.addToCart(product).subscribe(
       () => {
-        console.log('Product added to cart');
+        console.log('Product added to cart ',`${product.productName}`);
+        this.toastr.success(`${product.productName} added to cart successfully!`, 'Success');
+        
+        
       },
       (error) => {
         console.error('Error adding product to cart:', error);
+        this.toastr.error('Failed to add product to cart.', 'Error');
       }
     );
   }
