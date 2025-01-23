@@ -31,18 +31,21 @@ import { AssignedOrdersComponent } from './deliver-agent/assigned-orders/assigne
 import { DeliveredOrdersComponent } from './deliver-agent/delivered-orders/delivered-orders.component'; 
 import { AgentProfile } from './deliver-agent/agentProfile/agentProfile.component'; 
 import { AuthGuard } from './guards/auth.guard';
+import { OutfordeliveryComponent } from './deliver-agent/outfordelivery/outfordelivery.component';
  
  
  
 const routes: Routes = [ 
-  { path : "",
-    redirectTo : "CustomerDashboardComponent",
-    pathMatch : "full"},
-  { 
-    path : "login", 
-    component : LoginComponent, 
+  {
+    path : "",
+    redirectTo : "/customer-dashboard/customer-home",
+    pathMatch : "full"
+  },
+  {
+    path : "login",
+    component : LoginComponent,
   }, 
-  { 
+  {  
     path : "register", 
     component : RegisterComponent 
   }, 
@@ -172,6 +175,10 @@ const routes: Routes = [
         path : "agent-profile", 
         component : AgentProfile ,
         canActivate: [AuthGuard], data: { roles: ['ROLE_DELIVERY_AGENT'] },
+      },
+      {
+        path : "agent-outfordelivery",
+        component : OutfordeliveryComponent
       } 
     ] 
   } 

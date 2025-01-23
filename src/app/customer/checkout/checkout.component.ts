@@ -96,7 +96,6 @@ export class CheckoutComponent implements OnInit {
           },
           error: (err) => {
             console.error('Failed to clear cart:', err);
-            alert('Failed to clear the cart.');
           }
         });
       },

@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { DeliveredOrdersComponent } from './delivered-orders/delivered-orders.component';
 import { AgentProfile } from './agentProfile/agentProfile.component';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { OutfordeliveryComponent } from './outfordelivery/outfordelivery.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
     AssignedOrdersComponent,
     AgentFooterComponent,
     DeliveredOrdersComponent,
-    AgentProfile
+    AgentProfile,
+    OutfordeliveryComponent
   ],
   imports: [
     CommonModule,

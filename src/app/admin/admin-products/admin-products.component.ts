@@ -31,9 +31,9 @@ export class AdminProductsComponent implements OnInit {
   showSuccessToast = false;
   showFailureToast = false;
 
-  // selectedProductForImages: any = null; 
-  // csvFile: File | null = null; 
-  // csvPreview: string[] = [];
+  selectedProductForImages: any = null; 
+  csvFile: File | null = null; 
+  csvPreview: string[] = [];
   
   constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}
 
@@ -263,84 +263,90 @@ export class AdminProductsComponent implements OnInit {
     }
   }
 
-  // setSelectedProductForImages(product: any): void { 
-  //   this.selectedProductForImages = product; 
-  //   this.csvFile = null; 
-  //   this.csvPreview = []; 
-  // } 
+  setSelectedProductForImages(product: any): void { 
+    console.log(this.selectedProductForImages);
+    
+    this.selectedProductForImages = product; 
+    this.csvFile = null; 
+    this.csvPreview = []; 
+  } 
  
-  // onCsvFileSelected(event: Event): void { 
-  //   const input = event.target as HTMLInputElement; 
-  //   if (input.files && input.files[0]) { 
-  //     this.csvFile = input.files[0]; 
-  //     this.parseCsvFile(); 
-  //   } 
-  // } 
+  onCsvFileSelected(event: Event): void { 
+    const input = event.target as HTMLInputElement; 
+    if (input.files && input.files[0]) { 
+      this.csvFile = input.files[0]; 
+      this.parseCsvFile(); 
+    } 
+  } 
  
-  // parseCsvFile(): void { 
-  //   if (!this.csvFile) return; 
+  parseCsvFile(): void { 
+    if (!this.csvFile) return; 
  
-  //   const reader = new FileReader(); 
-  //   reader.onload = (e: ProgressEvent<FileReader>): void => { 
-  //     const text: string = (e.target?.result as string) || ''; 
-  //     const lines: string[] = text.split('\n'); 
+    const reader = new FileReader(); 
+    reader.onload = (e: ProgressEvent<FileReader>): void => { 
+      const text: string = (e.target?.result as string) || ''; 
+      const lines: string[] = text.split('\n'); 
        
-  //     // Assume first line is header 
-  //     const header: string = lines[0].toLowerCase().trim(); 
-  //     if (!header.includes('imageurl')) { 
-  //       alert('CSV file must have a column named "imageUrl"'); 
-  //       this.csvFile = null; 
-  //       this.csvPreview = []; 
-  //       return; 
-  //     } 
+      // Assume first line is header 
+      const header: string = lines[0].toLowerCase().trim(); 
+      if (!header.includes('imageurl')) { 
+        alert('CSV file must have a column named "imageUrl"'); 
+        this.csvFile = null; 
+        this.csvPreview = []; 
+        return; 
+      } 
  
-  //     // Get URLs from CSV 
-  //     this.csvPreview = lines 
-  //       .slice(1) // Skip header 
-  //       .map((line: string): string => line.trim()) 
-  //       .filter((line: string): boolean => line.length > 0); 
-  //   }; 
-  //   reader.readAsText(this.csvFile); 
-  // } 
+      // Get URLs from CSV 
+      this.csvPreview = lines 
+        .slice(1) // Skip header 
+        .map((line: string): string => line.trim()) 
+        .filter((line: string): boolean => line.length > 0); 
+    }; 
+    reader.readAsText(this.csvFile); 
+  } 
  
-  // uploadImagesFromCsv(): void { 
-  //   if (!this.selectedProductForImages || !this.csvFile) return; 
+  uploadImagesFromCsv(): void { 
+    if (!this.selectedProductForImages || !this.csvFile) return; 
+    
+    
    
-  //   const formData = new FormData(); 
-  //   formData.append('file', this.csvFile); 
+    const formData = new FormData(); 
+    formData.append('file', this.csvFile); 
    
-  //   // Fix the parameter order: productId first, then formData 
-  //   this.productService.uploadImagesFromCsv( 
-  //     this.selectedProductForImages.productId, 
-  //     formData 
-  //   ).subscribe({ 
-  //     next: (response: any) => { 
-  //       // Close modal 
-  //       const modalElement = document.getElementById('csvUploadModal'); 
-  //       if (modalElement) { 
-  //         const modal = bootstrap.Modal.getInstance(modalElement); 
-  //         modal?.hide(); 
-  //       } 
+    // Fix the parameter order: productId first, then formData 
+    this.productService.uploadImagesFromCsv( 
+      this.selectedProductForImages.productId,
+      formData 
+    ).subscribe({ 
+      next: (response: any) => { 
+        console.log(this.selectedProductForImages.productId);
+        
+        // Close modal 
+        const modalElement = document.getElementById('csvUploadModal'); 
+        if (modalElement) { 
+          const modal = bootstrap.Modal.getInstance(modalElement); 
+          modal?.hide(); 
+        } 
    
-  //       // Show success message 
-  //       this.showSuccessToast = true; 
-  //       setTimeout(() => { 
-  //         this.showSuccessToast = false; 
-  //         this.cdr.detectChanges(); 
-  //       }, 3000); 
+        // Show success message 
+        this.showSuccessToast = true; 
+        setTimeout(() => { 
+          this.showSuccessToast = false; 
+          this.cdr.detectChanges(); 
+        }, 3000); 
    
-  //       // Reload product data 
-  //       this.loadProducts(); 
-  //     }, 
-  //     error: (error: any) => { 
-  //       console.error('Error uploading images:', error); 
-  //       this.showFailureToast = true; 
-  //       setTimeout(() => { 
-  //         this.showFailureToast = false; 
-  //         this.cdr.detectChanges(); 
-  //       }, 3000); 
-  //     } 
-  //   }); 
-  // }
+        // Reload product data 
+        this.loadProducts(); 
+      }, 
+      error: (error: any) => { 
+        console.error('Error uploading images:', error); 
+        this.showFailureToast = true; 
+        setTimeout(() => { 
+          this.showFailureToast = false; 
+          this.cdr.detectChanges(); 
+        }, 3000); 
+      } 
+    }); 
+  }
 
 }

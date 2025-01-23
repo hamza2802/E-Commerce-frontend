@@ -16,6 +16,7 @@
                 <div class="carousel-item active">
                     <img src="assets/customer/fold6_ad.png" class="d-block w-100" alt="Laptops Image"
                         style="height: 400px; object-fit: cover;">
+                        
                 </div>
     
                 <!-- Second Image: Mobile -->
@@ -69,8 +70,8 @@
                                 <h5 class="card-title" style="font-weight: 400;">{{ product.productName }}</h5>
                                 <!-- <p class="card-text">{{ product.productDescription }}</p> -->
                                 <div class="price-container">
-                                    <span class="price">${{ product.productDiscountedPrice }}</span>
-                                    <span class="original-price">${{ product.productActualPrice }}</span>
+                                    <span class="price">₹{{ product.productDiscountedPrice }}</span>
+                                    <span class="original-price">₹{{ product.productActualPrice }}</span>
                                 </div>
                             </div>
                         </div>
@@ -106,8 +107,8 @@
                             <h5 class="card-title" style="font-weight: 400;">{{ product.productName }}</h5>
                             <p class="card-text">{{ product.productDescription }}</p>
                             <div class="price-container">
-                                <span class="price">${{ product.productDiscountedPrice }}</span>
-                                <span class="original-price">${{ product.productActualPrice }}</span>
+                                <span class="price">₹{{ product.productDiscountedPrice }}</span>
+                                <span class="original-price">₹{{ product.productActualPrice }}</span>
                             </div>
                         </div>
                     </div>
@@ -143,8 +144,8 @@
                             <div class="card-body">
                                 <h5 class="card-title" style="font-weight: 400;">{{ product.productName }}</h5>
                                 <div class="price-container">
-                                    <span class="price">${{ product.productDiscountedPrice }}</span>
-                                    <span class="original-price">${{ product.productActualPrice }}</span>
+                                    <span class="price">₹{{ product.productDiscountedPrice }}</span>
+                                    <span class="original-price">₹{{ product.productActualPrice }}</span>
                                 </div>
                             </div>
                         </div>
@@ -167,7 +168,7 @@
                 <div class="col-md-3 mb-4" *ngFor="let product of headphones">
                     <div class="card h-100">
                         <div class="product-image-container position-relative">
-                            <img [src]="product.imageUrls[0]" class="card-img-top" alt="{{ product.productName }}">
+                            <img [src]="product.imageUrls[0]" class="card-img-top"  alt="{{ product.productName }}">
                             <div class="overlay d-flex align-items-center justify-content-center">
                                 <button class="btn btn-primary me-2" (click)="buyNow(product)">
                                     Buy Now
@@ -181,8 +182,8 @@
                             <h5 class="card-title" style="font-weight: 400;">{{ product.productName }}</h5>
                             <p class="card-text">{{ product.productDescription }}</p>
                             <div class="price-container">
-                                <span class="price">${{ product.productDiscountedPrice }}</span>
-                                <span class="original-price">${{ product.productActualPrice }}</span>
+                                <span class="price">₹{{ product.productDiscountedPrice }}</span>
+                                <span class="original-price">₹{{ product.productActualPrice }}</span>
                             </div>
                         </div>
                     </div>
@@ -205,18 +206,22 @@
                             style="min-width: 280px;">
                             <div class="product-image-container position-relative">
                                 <img [src]="product.imageUrls[0]" class="card-img-top" alt="{{ product.productName }}">
-                                <!-- Add to Cart Button -->
-                                <button (click)="addToCart(product)" class="btn btn-primary">Add to Cart</button>
-
-                                <!-- Buy Now Button -->
-                                <button (click)="buyNow(product)" class="btn btn-success">Buy Now</button>
-
+                                <!-- Overlay for buttons -->
+                                <div class="overlay d-flex align-items-center justify-content-center">
+                                    <button class="btn btn-primary me-2" (click)="buyNow(product)">
+                                        Buy Now
+                                    </button>
+                                    <button class="btn btn-secondary" (click)="addToCart(product)">
+                                        Add to Cart
+                                    </button>
+                                </div>
                             </div>
+                            
                             <div class="card-body">
-                                <h5 class="card-title" >{{ product.productName }}</h5>
+                                <h5 class="card-title" style="font-weight: 400;">{{ product.productName }}</h5>
                                 <div class="price-container">
-                                    <span class="price">${{ product.productDiscountedPrice }}</span>
-                                    <span class="original-price">${{ product.productActualPrice }}</span>
+                                    <span class="price">₹{{ product.productDiscountedPrice }}</span>
+                                    <span class="original-price">₹{{ product.productActualPrice }}</span>
                                 </div>
                             </div>
                         </div>
@@ -252,8 +257,8 @@
                             <h5 class="card-title">{{ product.productName }}</h5>
                             <p class="card-text">{{ product.productDescription }}</p>
                             <div class="price-container">
-                                <span class="price">${{ product.productDiscountedPrice }}</span>
-                                <span class="original-price">${{ product.productActualPrice }}</span>
+                                <span class="price">₹{{ product.productDiscountedPrice }}</span>
+                                <span class="original-price">₹{{ product.productActualPrice }}</span>
                             </div>
                         </div>
                     </div>

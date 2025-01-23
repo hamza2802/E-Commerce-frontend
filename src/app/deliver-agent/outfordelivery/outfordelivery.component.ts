@@ -17,10 +17,10 @@ export interface Order {
 
 @Component({
   selector: 'app-assigned-orders',
-  templateUrl: './assigned-orders.component.html',
-  styleUrls: ['./assigned-orders.component.css'],
+  templateUrl: './outfordelivery.component.html',
+  styleUrls: ['./outfordelivery.component.css'],
 })
-export class AssignedOrdersComponent implements OnInit {
+export class OutfordeliveryComponent implements OnInit {
   assignedOrders: Order[] = [];
   currentPage: number = 0;
   pageSize: number = 10;
@@ -45,7 +45,7 @@ export class AssignedOrdersComponent implements OnInit {
         console.log(data);
         
         // Filter orders with status "Out for delivery"
-        this.assignedOrders = data.filter(order => order.status === 'ASSIGNED');
+        this.assignedOrders = data.filter(order => order.status === 'OUT_FOR_DELIVERY');
       },
       (error) => {
         console.error('Error fetching assigned orders', error);
@@ -66,10 +66,10 @@ export class AssignedOrdersComponent implements OnInit {
   }
 
   markAsDelivered(orderId: number): void {
-    this.orderService.markAsOutForDelivery(orderId).subscribe(
+    this.orderService.markAsDelivered(orderId).subscribe(
       () => {
         this.showAlert = true;
-        this.alertMessage = 'Product Out For Delivery !';
+        this.alertMessage = 'Product delivered successfully!';
         this.alertType = 'success';
 
         // Hide alert after 3 seconds

@@ -15,7 +15,7 @@
                     <img src="assets/logo.png" alt="Logo" class="logo">
                 </a>
             </div>
-
+    
             <!-- Navigation Pills -->
             <div class="d-flex justify-content-center flex-grow-1">
                 <ul class="nav nav-pills" id="myTab" role="tablist">
@@ -26,6 +26,12 @@
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
+                        <a routerLink="/agent-dashboard/agent-outfordelivery" class="nav-link d-flex align-items-center" routerLinkActive="active">
+                            <i class="fas fa-check-circle"></i>
+                            Out For Delivery
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
                         <a routerLink="/agent-dashboard/agent-delivered-orders" class="nav-link d-flex align-items-center" routerLinkActive="active">
                             <i class="fas fa-check-circle"></i>
                             Delivered Orders
@@ -33,22 +39,24 @@
                     </li>
                 </ul>
             </div>
-
+    
             <!-- Admin Dropdown -->
             <div class="admin-dropdown">
                 <div class="dropdown">
                     <button class="btn dropdown-toggle" type="button" id="adminDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-user-circle"></i>
-                        Hello, 
+                         {{username}}
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminDropdown">
-                        <li><a class="dropdown-item" (click)="logout()" ><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                       
+                        <li><a class="dropdown-item" [routerLink]="'/agent-dashboard/agent-profile'"><i class="fas fa-user"></i> My Profile</a></li>
+                        <li><a class="dropdown-item" style="color: red;" (click)="logout()" ><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
-
+    
     <!-- Optional: Router Outlet for Dynamic Content -->
     <!-- <div class="container mt-4">
         <router-outlet></router-outlet>

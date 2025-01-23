@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ export class DeliveryAgentService {
 
   private apiUrl = 'http://localhost:8080/e-commerce/delivery-agents';  // Replace with your backend URL
 
+   private loggedInUserSubject = new BehaviorSubject<any | null>(null); // Store logged-in user details  
   constructor(private http: HttpClient) {}
 
   // Fetch all delivery agents from the backend
@@ -30,6 +31,14 @@ export class DeliveryAgentService {
     
     return this.http.delete<any>(`${this.apiUrl}/${agentId}`);
   }
+
+  getDeliveryAgent(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/details`,);
+  }
+
+  setLoggedInUser(user: any) {  
+    this.loggedInUserSubject.next(user);  
+  }  
 
 }
 

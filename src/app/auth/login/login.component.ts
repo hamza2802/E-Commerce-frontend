@@ -13,7 +13,6 @@ export class LoginComponent {
   constructor(private loginService: LoginService, private router: Router) { }
 
   passwordFieldType: string = 'password';
-
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]), 
     password: new FormControl('', [Validators.required]), 
@@ -24,6 +23,7 @@ export class LoginComponent {
   role: any = "";
   captcha: string = this.generateCaptcha();
   captchaFailed: boolean = false;
+  errorMessage: string = '';  // New property to hold the error message
 
   generateCaptcha(): string {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -39,11 +39,8 @@ export class LoginComponent {
   }
 
   onLogin() {
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched(); // Mark all fields as touched to trigger validation messages
-      return;
-    }
-
+    console.log("hellllllllllll");
+  
     if (this.loginForm.value.userCaptcha !== this.captcha) {
       this.captchaFailed = true;
       this.loginForm.get('userCaptcha')?.reset(); // Clear the captcha input
@@ -52,25 +49,47 @@ export class LoginComponent {
       this.captchaFailed = false;
       this.loginService.signIn(this.loginForm.value).subscribe({
         next: (response) => {
-          this.myToken = response.accessToken;
-          localStorage.setItem('token', this.myToken);
-
-          const payload = JSON.parse(atob(this.myToken.split('.')[1]));
-          const userRole = payload['role'];
-
-          const userName = payload['sub'];
-          if (userRole[0].authority === 'ROLE_ADMIN') {
-            this.router.navigateByUrl('/admin-dashboard/admin-home');
-          } else if (userRole[0].authority === 'ROLE_CUSTOMER') {
-            this.router.navigateByUrl('/customer-dashboard/customer-home');
-          } else if (userRole[0].authority === 'ROLE_DELIVERY_AGENT') {
-            this.router.navigateByUrl('/agent-dashboard/agent-assigned-orders');
+          console.log(response);
+  
+          if (response && response.accessToken) {
+            this.myToken = response.accessToken;
+            localStorage.setItem('token', this.myToken);
+  
+            try {
+              const payload = JSON.parse(atob(this.myToken.split('.')[1]));
+              const userRole = payload['role'];
+  
+              const userName = payload['sub'];
+              if (userRole[0].authority === 'ROLE_ADMIN') {
+                this.router.navigateByUrl('/admin-dashboard/admin-home');
+              } else if (userRole[0].authority === 'ROLE_CUSTOMER') {
+                this.router.navigateByUrl('/customer-dashboard/customer-home');
+              } else if (userRole[0].authority === 'ROLE_DELIVERY_AGENT') {
+                this.router.navigateByUrl('/agent-dashboard/agent-assigned-orders');
+              }
+            } catch (error) {
+              console.error('Error decoding token:', error);
+              this.errorMessage = 'There was an error with the token. Please try again.';
+            }
+          } else {
+            this.errorMessage = 'Login failed. Please check your credentials and try again.';
           }
-        }, 
-        error: (err: HttpErrorResponse) => {
-          console.log(err.message);
+        },
+        error: (err) => {
+          console.error("Error during login:", err);
+  
+          if (err.status === 400) {
+            // Ensure you access the correct errorMessage field
+            this.errorMessage = err.error?.errorMessage || 'Invalid login credentials.';
+          } else {
+            this.errorMessage = 'An error occurred during login. Please try again later.';
+          }
+  
+          alert(this.errorMessage); // Optionally show a user-friendly message
         }
       });
     }
   }
+  
+  
 }

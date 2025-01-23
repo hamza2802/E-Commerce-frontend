@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class OrderservicesService {
   private baseUrl = 'http://localhost:8080/e-commerce/orders';
+  private baseUrl2 = 'http://localhost:8080/e-commerce/orders/all';
 
   constructor(private http: HttpClient) {}
 
@@ -30,4 +31,8 @@ export class OrderservicesService {
     return this.http.put<any>(`${this.baseUrl}/assign-delivery-agent`, assignmentData);
   }
 
+
+  getAllOrders(): Observable<any[]> { 
+    return this.http.get<any[]>(this.baseUrl2); 
+}
 }

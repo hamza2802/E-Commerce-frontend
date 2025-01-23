@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'; 
+import { OrderservicesService } from 'src/app/services/admin/orderservices.service';
 import { ProductService } from 'src/app/services/admin/product.service';
 import { ViewCustomerservicesService } from 'src/app/services/admin/view-customerservices.service'; 
 import { DeliveryAgentService } from 'src/app/services/delivery-agent/deliveryAgentService';
-import { OrdersService } from 'src/app/services/delivery-agent/orders.service';
 
  
 @Component({ 
@@ -20,7 +20,7 @@ export class AdminHomeComponent implements OnInit {
  
   constructor(private customerService: ViewCustomerservicesService, 
     private productService:ProductService,
-    private ordersService:OrdersService,
+    private ordersService: OrderservicesService,
   private  deliveryAgentService:DeliveryAgentService) { } 
  
   ngOnInit(): void { 
@@ -46,13 +46,12 @@ export class AdminHomeComponent implements OnInit {
   }
 
 
-  fetchTotalOrderCount(): void {
-    // Fetch the first page of orders with a small page size
-    this.ordersService.getAssignedOrders(0, 1).subscribe((data) => {
-      this.totalOrders = data.totalElements; // Assuming totalElements holds the total order count
-    });
+  fetchTotalOrderCount(): void { 
+    // Fetch the first page of orders with a small page size 
+    this.ordersService.getAllOrders().subscribe((data) => { 
+      this.totalOrders = data.length; // Assuming totalElements holds the total order count 
+    }); 
   }
-
   fetchTotalDeliveryAgentCount(): void {
     this.deliveryAgentService.getDeliveryAgents(0, 1).subscribe((data) => {
       this.totalDeliveryAgents = data.totalElements; // Assuming totalElements holds the total count

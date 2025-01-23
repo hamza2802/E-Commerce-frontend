@@ -1,10 +1,11 @@
 <div class="container mt-4">
-    <h1>Assigned Orders</h1>
+    <h1>Delivered Orders</h1>
     <table class="table table-striped table-bordered">
       <thead>
         <tr>
           <th>Sr No.</th>
           <th>Order ID</th>
+          
           <th>Status</th>
           <th>Actions</th>
         </tr>
@@ -13,20 +14,16 @@
         <tr *ngFor="let order of assignedOrders; let i = index">
           <td>{{ i + 1 }}</td>
           <td>{{ order.orderId }}</td>
+          
           <td>{{ order.status }}</td>
           <td>
             <button
               class="btn btn-primary btn-sm"
-              (click)="viewCustomerDetails(order)"
-            >
-              View Customer Details
-            </button>
-            <button
-              class="btn btn-success btn-sm"
               (click)="markAsDelivered(order.orderId)"
             >
-              Out for Delivery
+              Mark as Delivered
             </button>
+           
           </td>
         </tr>
       </tbody>
@@ -58,25 +55,16 @@
           <button type="button" class="btn-close" (click)="closeModal()"></button>
         </div>
         <div class="modal-body">
-          <p><strong>Name:</strong> {{ selectedCustomerDetails?.firstName }} {{ selectedCustomerDetails?.lastName }}</p>
+          <p><strong>Name:</strong> {{ selectedCustomerDetails?.firstName + ' ' + selectedCustomerDetails?.lastName }}</p>
           <p><strong>Email:</strong> {{ selectedCustomerDetails?.email }}</p>
           <p><strong>Phone:</strong> {{ selectedCustomerDetails?.contactNumber }}</p>
           <p><strong>Address:</strong> {{ selectedCustomerDetails?.address }}</p>
-  
-          <!-- Alert Message inside Modal -->
-          <div *ngIf="showAlert" class="custom-alert" [ngClass]="alertType">
-            {{ alertMessage }}
-          </div>
         </div>
+        
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
         </div>
       </div>
     </div>
-  </div>
-  
-  <!-- Global Alert if Needed -->
-  <div *ngIf="showAlert && !showModal" class="custom-alert" [ngClass]="alertType">
-    {{ alertMessage }}
   </div>
   

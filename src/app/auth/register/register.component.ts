@@ -22,13 +22,15 @@ export class RegisterComponent {
 
   showPopup = false;
   popupMessage = { title: '', message: '' };
-
-  constructor(private http: HttpClient) {}
+  errorMessage: string = '';
 
   passwordFieldType: string = 'password';
   confirmPasswordFieldType: string = 'password';
 
-  togglePasswordVisibility(field: string) {
+  constructor(private http: HttpClient) {}
+
+  // Toggles visibility of password fields
+  togglePasswordVisibility(field: string): void {
     if (field === 'password') {
       this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
     } else if (field === 'confirmPassword') {
@@ -36,62 +38,66 @@ export class RegisterComponent {
     }
   }
 
+  // Custom validator to check if password and confirmPassword match
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password');
     const confirmPassword = control.get('confirmPassword');
 
     if (password && confirmPassword && password.value !== confirmPassword.value) {
-      confirmPassword.setErrors({ passwordMismatch: true });
       return { passwordMismatch: true };
     }
     return null;
   }
 
-  onRegister() {
+  // Handles user registration
+  onRegister(): void {
     if (this.registerForm.valid) {
-      const email = this.registerForm.value.email;
-  
-      // Check if email is not null or undefined before calling .toLowerCase()
-      if (email) {
-        const emailLowercased = email.toLowerCase();
-  
-        const userData = {
-          firstname: this.registerForm.value.firstname,
-          lastname: this.registerForm.value.lastname,
-          email: emailLowercased,  
-          password: this.registerForm.value.password
-        };
-  
-        this.http.post('http://localhost:8080/e-commerce/register', userData).subscribe({
-          next: (response) => {
-            console.log('Registration successful:', response);
-            this.showPopupMessage('Success', 'Registration successful!');
-          },
-          error: (error) => {
-            console.error('Registration failed:', error);
-            this.showPopupMessage('Error', 'Registration failed. Please try again.');
+      const email = this.registerForm.value.email?.toLowerCase();
+
+      const userData = {
+        firstname: this.registerForm.value.firstname,
+        lastname: this.registerForm.value.lastname,
+        email: email,
+        password: this.registerForm.value.password
+      };
+
+      this.http.post('http://localhost:8080/e-commerce/register', userData).subscribe({
+        next: (response) => {
+          console.log('Registration successful:', response);
+          this.showPopupMessage('Success', 'Registration successful!');
+        },
+        error: (err) => {
+          console.error('Error during registration:', err);
+
+          if (err.status === 208) {
+            this.errorMessage = err.error?.errorMessage || 'Email already registered.';
+          } else {
+            this.errorMessage = 'An error occurred during registration. Please try again later.';
           }
-        });
-      } else {
-        // Handle the case when email is null or undefined
-        console.error('Email is missing!');
-        this.showPopupMessage('Error', 'Please enter a valid email.');
-      }
+
+          this.showPopupMessage('Error', this.errorMessage);
+        }
+      });
+    } else {
+      this.showPopupMessage('Error', 'Please fill out the form correctly.');
     }
   }
-  
-  showPopupMessage(title: string, message: string) {
+
+  // Displays popup messages
+  showPopupMessage(title: string, message: string): void {
     this.popupMessage = { title, message };
     this.showPopup = true;
   }
 
-  closePopup() {
+  // Closes popup
+  closePopup(): void {
     this.showPopup = false;
   }
 
+  // Getters for form controls
   get email() { return this.registerForm.get('email'); }
   get firstname() { return this.registerForm.get('firstname'); }
   get lastname() { return this.registerForm.get('lastname'); }
   get password() { return this.registerForm.get('password'); }
   get confirmPassword() { return this.registerForm.get('confirmPassword'); }
-}  
+}

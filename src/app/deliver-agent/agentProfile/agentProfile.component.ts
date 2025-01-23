@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DeliveryAgentService } from 'src/app/services/delivery-agent/deliveryAgentService';
 
 
 declare var bootstrap: any;
@@ -22,7 +23,7 @@ export class AgentProfile implements OnInit {
   successMessage: string = '';
 
   constructor(
-    private customerService: CustomerService,
+    private deliveryAgentService: DeliveryAgentService,
     private fb: FormBuilder,
     private router: Router,
     private http: HttpClient,
@@ -31,22 +32,22 @@ export class AgentProfile implements OnInit {
   
 
   ngOnInit(): void {
-    this.loadUserProfile();
+    // this.loadUserProfile();
     this.profileForm = this.fb.group({
       email: [{ value: null, disabled: true }, [Validators.required, Validators.email]],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
       contactNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-      alternateContactNumber: ['', [Validators.pattern('^[0-9]{10}$')]],
+      vehicleType: ['', [Validators.pattern('^[0-9]{10}$')]],
       address: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
+      vehicleNumber: ['', Validators.required],
+      deliveryZone: ['', Validators.required],
       pincode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]]
      
     });
   
     // Fetch initial data
-    this.customerService.getLoggedInUser().subscribe((data) => {
+    this.deliveryAgentService.getDeliveryAgent().subscribe((data) => {
       this.profileForm.patchValue(data);
     });
   
@@ -85,14 +86,14 @@ onFileSelect(event: any): void {
 }
 
 
-  // Update Profile Picture
+  // // Update Profile Picture
   updateProfilePicture(): void {
     if (this.profilePicture) {
       this.uploadProfilePicture(this.profilePicture).subscribe(
         () => {
           this.successMessage = 'Profile picture updated successfully.';
           this.isEditing = false;
-          this.customerService.setLoggedInUser({ ...this.profileForm.value, profilePicture: this.profilePictureUrl });
+          this.deliveryAgentService.setLoggedInUser({ ...this.profileForm.value, profilePicture: this.profilePictureUrl });
           // Show success modal
           const modal = new bootstrap.Modal(document.getElementById('successModal'));
           modal.show();
@@ -105,29 +106,29 @@ onFileSelect(event: any): void {
   }
 
   // Save Profile Information
-  saveProfile(): void {
-    if (this.profileForm.valid) {
-      const updatedProfile = this.profileForm.value;
-      this.saveCustomerDetails(updatedProfile);
-    }
-  }
+  // saveProfile(): void {
+  //   if (this.profileForm.valid) {
+  //     const updatedProfile = this.profileForm.value;
+  //     this.saveCustomerDetails(updatedProfile);
+  //   }
+  // }
 
   // Save Customer Details
-  saveCustomerDetails(updatedProfile: any): void {
-    this.customerService.saveCustomerDetails(updatedProfile).subscribe(
-      (response) => {
-        this.successMessage = 'Profile updated successfully.';
-        this.isEditing = false;
-        this.customerService.setLoggedInUser(updatedProfile);
-        // Show success modal
-        const modal = new bootstrap.Modal(document.getElementById('successModal'));
-        modal.show();
-      },
-      (error) => {
-        this.errorMessage = 'Failed to update profile. Please try again.';
-      }
-    );
-  }
+  // saveCustomerDetails(updatedProfile: any): void {
+  //   this.customerService.saveCustomerDetails(updatedProfile).subscribe(
+  //     (response) => {
+  //       this.successMessage = 'Profile updated successfully.';
+  //       this.isEditing = false;
+  //       this.customerService.setLoggedInUser(updatedProfile);
+  //       // Show success modal
+  //       const modal = new bootstrap.Modal(document.getElementById('successModal'));
+  //       modal.show();
+  //     },
+  //     (error) => {
+  //       this.errorMessage = 'Failed to update profile. Please try again.';
+  //     }
+  //   );
+  // }
 
   // Handle File Change (Preview Profile Picture)
   onFileChange(event: any): void {
@@ -144,6 +145,8 @@ onFileSelect(event: any): void {
     }
   }
 
+  
+
   // Upload Profile Picture
   uploadProfilePicture(file: File) {
     const formData: FormData = new FormData();
@@ -159,26 +162,26 @@ onFileSelect(event: any): void {
   }
 
   // Cancel Editing and Reload Profile
-  cancelEditing(): void {
-    this.isEditing = false;
-    this.loadUserProfile();
-  }
+  // cancelEditing(): void {
+  //   this.isEditing = false;
+  //   this.loadUserProfile();
+  // }
 
   // Load User Profile
-  loadUserProfile(): void {
-    this.customerService.getLoggedInUser().subscribe(
-      (user) => {
-        console.log(user);
+  // loadUserProfile(): void {
+  //   this.customerService.getLoggedInUser().subscribe(
+  //     (user) => {
+  //       console.log(user);
         
-        if (user) {
-          this.profileForm.patchValue(user);
-        }
-      },
-      (error) => {
-        this.errorMessage = 'Failed to load user profile.';
-      }
-    );
-  }
+  //       if (user) {
+  //         this.profileForm.patchValue(user);
+  //       }
+  //     },
+  //     (error) => {
+  //       this.errorMessage = 'Failed to load user profile.';
+  //     }
+  //   );
+  // }
 
   // Close Modal and Redirect
   closeModalAndRedirect(): void {

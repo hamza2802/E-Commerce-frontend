@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 export class OrdersService {
   private baseUrl = 'http://localhost:8080/e-commerce/orders';
 
+  
+
   constructor(private http: HttpClient) {}
 
   getAssignedOrders(page: number, size: number): Observable<any> {
@@ -17,6 +19,11 @@ export class OrdersService {
 
   markAsDelivered(orderId: number): Observable<any> {
     const url = `${this.baseUrl}/mark-as-delivered/${orderId}`;
+    return this.http.put<any>(url, {});
+  }
+
+  markAsOutForDelivery(orderId: number): Observable<any> {
+    const url = `${this.baseUrl}/out-for-delivery/${orderId}`;
     return this.http.put<any>(url, {});
   }
 }

@@ -15,6 +15,8 @@ export class CustomerHomeComponent implements OnInit {
   headphones : any[] = [];
   smartwatches: any[] = [];
 
+  
+
   constructor(
     private productService: ProductService, 
     private router: Router,
@@ -73,6 +75,11 @@ export class CustomerHomeComponent implements OnInit {
       }
     );
   }
+
+  navigateToProduct(productId: string): void {
+    this.router.navigate(['/customer-dashboard/product-details'], { queryParams: { id: productId } });
+  }
+  
 
   addToCart(product: any) {
     console.log('Adding to cart', product.productName);
